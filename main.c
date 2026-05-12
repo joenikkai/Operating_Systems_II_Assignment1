@@ -14,12 +14,20 @@
     "    This is the burst time if the job in seconds\n" \
     "qQ to quit\n"
 
-/* starting point */
 int main()
 {
     printf( BOOTING_SEQUENCE);
     read_history(HISTORY_FILE);
     stifle_history(HISTORY_MAX);
+
+    /* initialize regex */
+    RET = regcomp(&REGEX,PATTERN,REG_EXTENDED | REG_ICASE);
+    if (RET) {
+        char errbuff[1024];
+        regerror(RET,&REGEX,errbuff,sizeof(errbuff));
+        fprintf(stderr,"regcomp failed: %s\n",errbuff);
+    }
+
     char *input;
     while ((input = get_user_input()) && tolower(input[0]) != 'q')
     {
