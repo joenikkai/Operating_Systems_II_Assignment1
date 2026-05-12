@@ -2,6 +2,8 @@
 #define PATTERN_H
 
 #include <regex.h>
+#include <stdlib.h>
+
 int RET;
 regex_t REGEX;
 /* regex pattern */
@@ -19,8 +21,8 @@ matches == 4
 
 struct extracted_strings
 {
-    int number_of_groups;
-    int *length_of_strings;
+    size_t number_of_groups;
+    size_t *length_of_strings;
     char **strings;
 };
 
