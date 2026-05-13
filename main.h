@@ -3,6 +3,9 @@
 #define MAIN_H
 #define PROGRAM_NAME "Operating_Systems_II_Assignment1"
 
+#include "input.h"
+#include "pattern.h"
+
 #define BOOTING_SEQUENCE "$ > 9  \"Execution of write file syscall\" 0\n" \
     "    ^          ^                           ^\n" \
     "    |          |                           |\n" \

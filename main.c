@@ -4,16 +4,18 @@
 #include <stdint.h>
 #include <regex.h>
 
-#include "input.h"
-#include "pattern.h"
+
+#include "main.h"
 
 
-
-int main()
+int main(int argc,char **argv)
 {
     printf( BOOTING_SEQUENCE);
     read_history(HISTORY_FILE);
     stifle_history(HISTORY_MAX);
+    
+    /* return value */
+    int retval = 0;
 
     /* initialize regex */
     RET = regcomp(&REGEX,PATTERN,REG_EXTENDED | REG_ICASE);
@@ -23,16 +25,13 @@ int main()
         fprintf(stderr,"regcomp failed: %s\n",errbuff);
     }
 
-    char *input;
-    while ((input = get_user_input()) && tolower(input[0]) != 'q')
-    {
-        if (strlen(input)> 0) 
-            printf("%s\n", input);
-        free(input);
-    }
-    if (input)
-        free(input);
+#if defined(TEST_THIS_CODE)
+    retval = testing_program(argc,argv);
+#else
+    retval = main_program(argc, argv);
+#endif // TEST_THIS_CODE
+
     /* the write history must exists */
     write_history(HISTORY_FILE);
-    return 0;
+    return retval;
 }

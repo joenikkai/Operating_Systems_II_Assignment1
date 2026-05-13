@@ -1,10 +1,18 @@
 CC ?= gcc
-FLAGS ?= 
+
+# This flag is enabled so that we can pass the -DTEST_THIS_CODE flag
+MACROS_FLAGS ?=
+MACROS_FLAGS := $(MACROS_FLAGS)
+
 IFLAGS ?=
 IFLAGS := -I./
-FLAGS := -std=c99 $(FLAGS) $(IFLAGS)
+
+FLAGS ?= 
+FLAGS := -std=c99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS)
+
 LDFLAGS ?= 
 LDFLAGS :=  -lreadline $(LDFLAGS)
+
 BINARY ?= Operating_Systems_II_Assignment1
 
 SOURCES ?= $(shell find . -name "*.c")
