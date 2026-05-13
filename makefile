@@ -21,15 +21,18 @@ OBJECTS := $(SOURCES:%.c=%.o)
 .PHONY: all clean run
 
 all: $(BINARY)
-	@echo "compilation complete"
+	@echo "Compilation complete"
 
 %.o: %.c
-	$(CC) -o $@ -c $< $(FLAGS)
+	@echo "COMPILING: $<"
+	@$(CC) -o $@ -c $< $(FLAGS)
 
 $(BINARY): $(OBJECTS)
-	$(CC) -o $@ $^ $(FLAGS) $(LDFLAGS)
+	@echo "LiNKING: $<"
+	@$(CC) -o $@ $^ $(FLAGS) $(LDFLAGS)
 
 run: $(BINARY)
+	@echo "RUNNING: $<"
 	./$<
 
 clean:
