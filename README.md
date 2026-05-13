@@ -38,3 +38,10 @@ struct Job {
 ```
 
 We will use the GNU readline library to get user input.
+
+## REPL
+
+This is how our loop looks like
+<div>
+<video src="./media/2026-05-13 16-36-25.avi" autoplay ></video>
+</div>
