@@ -1,4 +1,5 @@
-#include "main.h"
+#include "input.h"
+#include "pattern.h"
 
 int main_program(int argc, char **argv)
 {

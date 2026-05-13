@@ -4,9 +4,12 @@
 #include <stdint.h>
 #include <regex.h>
 
+#include "input.h"
+#include "pattern.h"
 
-#include "main.h"
 
+int RET;
+regex_t REGEX;
 
 int main(int argc,char **argv)
 {
