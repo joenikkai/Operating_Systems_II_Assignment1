@@ -3,7 +3,7 @@
 
 char *get_user_input()
 {
-    char *input_buffer = readline(SIGNATURE "$ >");
+    char *input_buffer = readline(SIGNATURE "$ >  ");
     if (strlen(input_buffer) > 0) add_history(input_buffer);
     return input_buffer;
 }

@@ -28,7 +28,7 @@ all: $(BINARY)
 	@$(CC) -o $@ -c $< $(FLAGS)
 
 $(BINARY): $(OBJECTS)
-	@echo "LiNKING: $<"
+	@echo "LINKING: $^"
 	@$(CC) -o $@ $^ $(FLAGS) $(LDFLAGS)
 
 run: $(BINARY)
