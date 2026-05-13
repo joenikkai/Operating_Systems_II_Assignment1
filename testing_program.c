@@ -6,11 +6,13 @@
 int testing_program(int argc,char** argv) 
 {
     struct extracted_strings *es = test_extracted_data_from_string();
+    printf("INFO: %s. es -> %p ", (es) ? "success es allocated" : "error. es not allocated" , es);
+
     printf("Successfully tested\n");
-    test_free_extracted_strings(es);
-    if (!es)
+    if (es==NULL)
     {
-        printf("Successfully freed!");
+        test_free_extracted_strings(es);
+        printf("INFO: Freed es\n");
     }
     return 0;
 }
