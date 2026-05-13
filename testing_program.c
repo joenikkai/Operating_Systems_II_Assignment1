@@ -1,5 +1,17 @@
 #include "input.h"
 #include "pattern.h"
 
-int testing_program(int argc,char** argv)
-{}
+#if defined(TEST_THIS_CODE)
+
+int testing_program(int argc,char** argv) 
+{
+    struct extracted_strings *es = test_extracted_data_from_string();
+    printf("Successfully tested\n");
+    test_free_extracted_strings(es);
+    if (!es)
+    {
+        printf("Successfully freed!");
+    }
+    return 0;
+}
+#endif // TEST_THIS_CODE

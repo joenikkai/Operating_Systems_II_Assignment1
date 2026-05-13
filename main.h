@@ -16,7 +16,9 @@
     "qQ to quit\n"
 /* end of defines */
 
-int testing_program(int argc, char **argv);
 int main_program(int argc, char **argv);
+#if defined(TEST_THIS_CODE)
+int testing_program(int argc, char **argv);
+#endif // TEST_THIS_CODE
 
 #endif // MAIN_H

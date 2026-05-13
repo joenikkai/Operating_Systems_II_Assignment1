@@ -29,4 +29,9 @@ struct extracted_strings
 
 struct extracted_strings *extract_data_from_string(char *s);
 void free_extracted_strings(struct extracted_strings *es);
+
+#if defined(TEST_THIS_CODE)
+struct extracted_strings *test_extracted_data_from_string();
+void test_free_extracted_strings(struct extracted_strings *es);
+#endif // TEST_THIS_CODE
 #endif // PATTERN_H
