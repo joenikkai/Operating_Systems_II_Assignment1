@@ -15,7 +15,7 @@ int main_program(int argc, char **argv)
 
         /* make a new job */
         struct Job *new_job = get_new_job(es);
-        if (!es) {
+        if (!new_job) {
             printf("could not make a new job\n");
             continue;
         }
