@@ -6,6 +6,7 @@
 #include "pattern.h"
 struct Job
 {
+    time_t arrival_time;
     uint8_t wait;
     uint8_t e_code;
     char *e_msg;
