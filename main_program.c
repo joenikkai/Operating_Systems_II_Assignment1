@@ -9,7 +9,7 @@ int main_program(int argc, char **argv)
     {
         struct extracted_strings *es = extract_data_from_string(input);
         if (!es && strlen(input) > 0) {
-            printf("NO MATCH: %s\n", input);
+            printf("command not found: %s\n", input);
             continue;
         }
 
