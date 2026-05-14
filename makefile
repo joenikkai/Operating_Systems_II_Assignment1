@@ -9,7 +9,7 @@ IFLAGS ?=
 IFLAGS := -I./
 
 FLAGS ?= 
-FLAGS := -std=c99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS)
+FLAGS := -std=gnu99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS)
 
 LDFLAGS ?= 
 LDFLAGS :=  -lreadline $(LDFLAGS)
