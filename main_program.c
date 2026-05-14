@@ -20,7 +20,7 @@ int main_program(int argc, char **argv)
             printf("could not make a new job\n");
             continue;
         }
-        printf("arrival time: %zu | burst time: %hhu | exit message: %s | exit code: %hhu\n",new_job->arrival_time,new_job->wait,new_job->e_msg,new_job->e_code);
+        printf("arrival time: %zu | burst time: %hhu | exit message: %s | exit code: %hhu\n",new_job->arrival_time,new_job->burst,new_job->e_msg,new_job->e_code);
         free_extracted_strings(es);
         free(input);
     }
