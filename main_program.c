@@ -6,7 +6,7 @@
 int main_program(int argc, char **argv)
 {
     char *input;
-    while ((input = get_user_input()) && strcmp(OSIIA1_strn_to_lower(input, (size_t)strlen(input)), "quit") != 0)
+    while ((input = get_user_input()) && strcmp(OSIIA1_strn_to_lower(input, (size_t)strlen(input)), "exit") != 0)
     {
         if (strlen(input) <= 0)
         {
