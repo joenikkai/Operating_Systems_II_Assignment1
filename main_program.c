@@ -14,7 +14,7 @@ int main_program(int argc, char **argv)
         }
             struct extracted_strings *es = extract_data_from_string(input);
         if (!es) {
-            printf("command not found: %s\n", input);
+            printf("command `%s' not found.\n", input);
             continue;
         }
 
