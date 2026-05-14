@@ -1,3 +1,4 @@
+# i used \x86_64-w64-mingw32-gcc and x86_64-w64-mingw32-gcc for this project
 CC ?= gcc
 
 # This flag is enabled so that we can pass the -DTEST_THIS_CODE flag
@@ -8,7 +9,7 @@ IFLAGS ?=
 IFLAGS := -I./
 
 FLAGS ?= 
-FLAGS := -std=c99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS)
+FLAGS := -std=gnu99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS)
 
 LDFLAGS ?= 
 LDFLAGS :=  -lreadline $(LDFLAGS)

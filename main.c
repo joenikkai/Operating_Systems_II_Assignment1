@@ -11,6 +11,10 @@
 int RET;
 regex_t REGEX;
 
+time_t time_quanta;
+time_t starting_time;
+time_t end_time_for_previous_job;
+
 int main(int argc,char **argv)
 {
     printf( BOOTING_SEQUENCE);

@@ -9,6 +9,7 @@ struct Job *get_new_job(struct extracted_strings* es) /* makes a new `struct Job
         perror("calloc");
         return NULL;
     }
+    new_job->arrival_time = time(NULL);
     new_job->wait = (uint8_t)atoi(es->strings[1]);
     new_job->e_msg = calloc(es->length_of_strings[2]+1, sizeof(char));
     new_job->e_code = (uint8_t)atoi(es->strings[3]);
