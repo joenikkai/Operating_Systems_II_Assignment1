@@ -8,8 +8,12 @@ int main_program(int argc, char **argv)
     char *input;
     while ((input = get_user_input()) && tolower(input[0]) != 'q')
     {
-        struct extracted_strings *es = extract_data_from_string(input);
-        if (!es && strlen(input) > 0) {
+        if (strlen(input) <= 0)
+        {
+            continue;
+        }
+            struct extracted_strings *es = extract_data_from_string(input);
+        if (!es) {
             printf("command not found: %s\n", input);
             continue;
         }
