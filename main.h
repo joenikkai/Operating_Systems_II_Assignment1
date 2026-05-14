@@ -13,7 +13,7 @@
     "    |          |                          This is the exitcode of the thread\n" \
     "    |          This is what to print after a job has been executed\n" \
     "    This is the burst time if the job in seconds\n" \
-    "qQ to quit\n"
+    "(quitQuit) to exit the program\n"
 /* end of defines */
 
 int main_program(int argc, char **argv);
