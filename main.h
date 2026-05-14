@@ -20,5 +20,6 @@ int main_program(int argc, char **argv);
 #if defined(TEST_THIS_CODE)
 int testing_program(int argc, char **argv);
 #endif // TEST_THIS_CODE
+char *OSIIA1_strn_to_lower(char *s, size_t l);
 
 #endif // MAIN_H
