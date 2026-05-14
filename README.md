@@ -2,7 +2,7 @@
 
 This is an assignment to BCT-222 Y1 S2 students given in [Multimedia University of Kenya](https://mmu.ac.ke)
 
-> Make a program in your desired language illustrating shotest job first preemptive. Work in groups
+> [Make a program in your desired language illustrating shotest job first preemptive. Work in groups](./docs/pdf/Group%20Assignment.pdf)
 
 
 ## The implementation plan
