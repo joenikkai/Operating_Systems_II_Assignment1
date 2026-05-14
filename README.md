@@ -24,14 +24,14 @@ $ > 9  "Execution of write file syscall"  0
 We are going to use regex as our regular expression matching algoritm.
 
 The maximmum number of jobs we can have in a specific time will be 255.
-The maximum wait time is going to be 4 minutes 15 seconds.
+The maximum burst time is going to be 4 minutes 15 seconds.
 We will use `uint8_t` from `stdint.h` a one byte integer.
 
 our job structure will be.
 
 ```c
 struct Job {
-    uint8_t wait;
+    uint8_t burst;
     uint8_t e_code;
     char* e_msg;
 };
