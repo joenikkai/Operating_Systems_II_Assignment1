@@ -34,4 +34,5 @@ extern struct Bucket *sus_bucket; /* suspended but not finished processes */
 
 extern uint16_t NUMBER_OF_JOBS;
 
+void free_bucket(struct Bucket *b);
 #endif // OSIIA1_THREADS_H
