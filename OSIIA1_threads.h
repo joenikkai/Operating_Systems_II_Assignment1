@@ -18,8 +18,7 @@
 
 struct job_instance {
     uint8_t job_id;
-    char *job_e_msg;
-    time_t time_burst_time;
+    struct Job* j;
 };
 
 struct Bucket
