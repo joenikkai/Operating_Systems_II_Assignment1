@@ -84,9 +84,9 @@ flowchart
     check_shortest -.if The current job is the shortest job.-> check_return
 
     check_return --If the process can still be executed--> cpu_exec
-    check_return --If the process has returned--> Out_Bucket
+    check_return --If the process has returned--> register
 
-    Out_Bucket --> ProcessReturn
+    register --> ProcessReturn
 
     %% --- %%
     ProcessBegin([From enough job space left check])
@@ -94,7 +94,7 @@ flowchart
     %% Buckets
     In_Bucket[RAM BUCKET] %% This bcket is for incomming jobs
     Suspended_Bucket[CACHE BUCKET] %% this is for waiting jobs
-    Out_Bucket[STORAGE BUCKET] %% this is for completed jobs
+    register[record job busttime and exit time] %% this is for completed jobs
 
     cpu_exec[execute for  given time quanta] %%This is basically a wait clock but we will call it a cpu for illustration
     
