@@ -21,4 +21,7 @@ int main_program(int argc, char **argv);
 int testing_program(int argc, char **argv);
 #endif // TEST_THIS_CODE
 
+extern int *WINDOW_WIDTH; /* \brief The width of the current terminal */
+extern int *WINDOW_HEIGHT;/* \brief The height of the current terminal */
+
 #endif // MAIN_H

@@ -6,10 +6,14 @@
 
 #include "input.h"
 #include "pattern.h"
+#include "OSIIA1_terminal.h"
 
+int *WINDOW_WIDTH;
+int *WINDOW_HEIGHT;
 
 int RET;
 regex_t REGEX;
+
 
 int main(int argc,char **argv)
 {
