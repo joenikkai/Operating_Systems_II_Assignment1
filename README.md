@@ -46,3 +46,16 @@ This is how our loop looks like
 <video src="./docs/media/video.mkv" alt="REPL demonstration mp4" controls ></video>
 </div>
 <img src="./docs/media/picture.png" alt="REPL demonstration mp4">
+
+## Proccess illustration 
+
+```mermaid
+flowchart
+    alpha([Start])
+    alpha --> step1[/Dummy booting sequence/] --> step2
+    step2[\user input\] --> exit_check{\ has quit? \}
+    exit_check -..->|True|omega
+    exit_check -->|False|process --> step2
+    omega([End])
+```
+

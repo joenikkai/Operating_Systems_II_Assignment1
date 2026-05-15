@@ -1,5 +1,22 @@
 #if !defined(OSIIA1_THREADS_H)
 #define OSIIA1_THREADS_H
+#include "main.h"
+
+#if defined(__WIN32) /* platform  */
+#include <windows.h>
+typedef HANDLE OSIIA1_thread_t;
+#define THREAD_RETURN DWORD WINAPI
+#define THREAD_RETURN_VALUE 0
+#elif defined(__unix__) /* platform  */
+#include <unistd.h>
+#include <pthread.h>
+typedef pthread_t OSIIA1_thread_t;
+#define THREAD_RETURN void*
+#define THREAD_RETURN_VALUE NULL
+#else /* platform  */
+#error PLATFORM_COMPATIBILITY_ERROR
+#endif /* platform  */
+
 
 /**
  * constantly update window size.
@@ -10,18 +27,29 @@
  * The program that is currently running does not need a bucket because it is already in the VM's CPU
 */
 #include <time.h>
+#include <stdint.h>
 
-struct Bucket {
-    int job_id;
-    char *job_e_msg;
-    time_t time_burst_time;
+#define MAXIMUM_IN_JI_ACCUMULATION ((uint16_t)(255)) /* incomming job instance accummulation */
+#define MAXIMUM_OUT_JI_ACCUMULATION ((uint16_t)(1023)) /* outgoing job instance accummulation */
+#define MAXIMUM_SUS_JI_ACCUMULATION ((uint16_t)(MAXIMUM_OUT_JI_ACCUMULATION - MAXIMUM_IN_JI_ACCUMULATION)) /* suspended job instance accummulation */
+
+struct job_instance {
+    uint8_t job_id;
+    struct Job *j;
+};
+
+struct Bucket
+{
+    struct job_instance *ji;
+    uint16_t ji_accummulation;
+    uint16_t maximum_ji_accummulation;
 };
 
 extern struct Bucket *in_bucket; /* incoming processes */
-extern struct Bucket *out_bucket; /* completed processes */
+extern struct Bucket *out_bucket; /* outgoing processes */
 extern struct Bucket *sus_bucket; /* suspended but not finished processes */
 
-struct Bucket *in_bucket;
-struct Bucket *out_bucket;
-struct Bucket *sus_bucket;
+extern uint16_t NUMBER_OF_JOBS;
+
+void free_bucket(struct Bucket *b);
 #endif // OSIIA1_THREADS_H

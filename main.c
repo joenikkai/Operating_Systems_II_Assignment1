@@ -7,6 +7,7 @@
 #include "input.h"
 #include "pattern.h"
 #include "OSIIA1_terminal.h"
+#include "OSIIA1_threads.h"
 
 #undef DEBUG
 
@@ -21,9 +22,40 @@ time_t time_quanta = 1;
 time_t starting_time = 0;
 time_t end_time_for_previous_job = 0;
 
-int main(int argc,char **argv)
+struct Bucket *in_bucket = NULL;
+struct Bucket *out_bucket = NULL;
+struct Bucket *sus_bucket = NULL;
+
+uint16_t NUMBER_OF_JOBS = 1;
+
+int main(int argc, char **argv)
 {
     starting_time = time(NULL);
+    /* allocate buckets */
+    /* incomming buckets */
+    in_bucket = calloc(1, sizeof(struct Bucket));
+
+    /* initalize bucket values */
+    in_bucket->maximum_ji_accummulation = MAXIMUM_IN_JI_ACCUMULATION;
+    in_bucket->ji_accummulation = 0;
+    in_bucket->ji = calloc(MAXIMUM_IN_JI_ACCUMULATION + 1, sizeof(struct job_instance));
+
+    /* outging bucket */
+    out_bucket = calloc(1, sizeof(struct Bucket));
+
+    /* initalize bucket values */
+    out_bucket->maximum_ji_accummulation = MAXIMUM_OUT_JI_ACCUMULATION;
+    out_bucket->ji_accummulation = 0;
+    out_bucket->ji = calloc(MAXIMUM_OUT_JI_ACCUMULATION + 1, sizeof(struct job_instance));
+
+    /* suspended bucket */
+    sus_bucket = calloc(1, sizeof(struct Bucket));
+
+    /* initalize bucket values */
+    sus_bucket->maximum_ji_accummulation = MAXIMUM_SUS_JI_ACCUMULATION;
+    sus_bucket->ji_accummulation = 0;
+    sus_bucket->ji = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct job_instance));
+
 #if defined(DEBUG)
     printf("We are here\n");
 #endif // DEBUG
@@ -73,5 +105,11 @@ int main(int argc,char **argv)
     OSIIA1_print_horirontal_line(NULL, " ", 1);
     printf("Goodbye. Hope well see you next time.\n");
     OSIIA1_print_horirontal_line(NULL, " ", 2);
+    if (in_bucket)
+        free_bucket(in_bucket);
+    if (out_bucket)
+        free_bucket(out_bucket);
+    if (sus_bucket)
+        free_bucket(sus_bucket);
     return retval;
 }
