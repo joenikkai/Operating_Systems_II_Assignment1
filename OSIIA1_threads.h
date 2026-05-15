@@ -10,18 +10,28 @@
  * The program that is currently running does not need a bucket because it is already in the VM's CPU
 */
 #include <time.h>
+#include <stdint.h>
 
-struct Bucket {
-    int job_id;
+#define MAXIMUM_IN_JI_ACCUMULATION ((uint16_t)(255)) /* incomming job instance accummulation */
+#define MAXIMUM_OUT_JI_ACCUMULATION ((uint16_t)(1023)) /* completeted job instance accummulation */
+#define MAXIMUM_SUS_JI_ACCUMULATION ((uint16_t)(MAXIMUM_OUT_JI_ACCUMULATION - MAXIMUM_IN_JI_ACCUMULATION)) /* suspended job instance accummulation */
+
+struct job_instance {
+    uint8_t job_id;
     char *job_e_msg;
     time_t time_burst_time;
+};
+
+struct Bucket
+{
+    job_instance *ji;
+    uint16_t ji_accummulation;
+    uint16_t maximum_ji_accummulation;
 };
 
 extern struct Bucket *in_bucket; /* incoming processes */
 extern struct Bucket *out_bucket; /* completed processes */
 extern struct Bucket *sus_bucket; /* suspended but not finished processes */
 
-struct Bucket *in_bucket;
-struct Bucket *out_bucket;
-struct Bucket *sus_bucket;
+
 #endif // OSIIA1_THREADS_H

@@ -7,6 +7,7 @@
 #include "input.h"
 #include "pattern.h"
 #include "OSIIA1_terminal.h"
+#include "OSIIA1_threads.h"
 
 #undef DEBUG
 
@@ -21,9 +22,17 @@ time_t time_quanta = 1;
 time_t starting_time = 0;
 time_t end_time_for_previous_job = 0;
 
+struct Bucket *in_bucket = NULL;
+struct Bucket *out_bucket = NULL;
+struct Bucket *sus_bucket = NULL;
+
 int main(int argc,char **argv)
 {
     starting_time = time(NULL);
+    /* allocate buckets */
+    in_bucket = calloc(MAXIMUM_IN_JI_ACCUMULATION, sizeof(struct Bucket));
+    out_bucket = calloc(MAXIMUM_OUT_JI_ACCUMULATION, sizeof(struct Bucket));
+    sus_bucket = calloc(MAXIMUM_SUS_JI_ACCUMULATION, sizeof(struct Bucket));
 #if defined(DEBUG)
     printf("We are here\n");
 #endif // DEBUG
