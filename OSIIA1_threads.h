@@ -1,5 +1,22 @@
 #if !defined(OSIIA1_THREADS_H)
 #define OSIIA1_THREADS_H
+#include "main.h"
+
+#if defined(__WIN32) /* platform  */
+#include <windows.h>
+typedef HANDLE OSIIA1_thread_t;
+#define THREAD_RETURN DWORD WINAPI
+#define THREAD_RETURN_VALUE 0
+#elif defined(__unix__) /* platform  */
+#include <unistd.h>
+#include <pthread.h>
+typedef pthread_t OSIIA1_thread_t;
+#define THREAD_RETURN void*
+#define THREAD_RETURN_VALUE NULL
+#else /* platform  */
+#error PLATFORM_COMPATIBILITY_ERROR
+#endif /* platform  */
+
 
 /**
  * constantly update window size.
