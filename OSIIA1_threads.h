@@ -61,7 +61,7 @@ extern struct job_instance *CURRENT_JOB;
 void free_bucket(struct Bucket *b);
 
 
-int handle_user_input(int argc,char** argv); /* will contain everything that the main program has now `That is the input loop`*/
+void handle_user_input(); /* will contain everything that the main program has now `That is the input loop`*/
 struct job_instance *extract_job_instance(struct job_instance *ji);
 struct job_instance *load_job_instance(struct job_instance *ji);
 void execute_job_instance(struct job_instance *ji);

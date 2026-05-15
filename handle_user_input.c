@@ -3,7 +3,7 @@
 #include "jobs.h"
 #include "OSIIA1_threads.h"
 
-int handle_user_input(int argc, char **argv)
+void handle_user_input()
 {
     char *input = get_user_input();
     
