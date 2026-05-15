@@ -17,8 +17,19 @@ regex_t REGEX;
 
 int main(int argc,char **argv)
 {
-    get_current_terminal_width(WINDOW_HEIGHT, WINDOW_WIDTH);
-    OSIIA1_print_horirontal_line(NULL, NULL,2);
+    printf("We are here\n");
+    get_current_terminal_width(&WINDOW_HEIGHT, &WINDOW_WIDTH);
+    if (!WINDOW_HEIGHT)
+    {
+        printf("Could not assign window height value.\n");
+        return 1;
+    }
+    if (!WINDOW_WIDTH)
+    {
+        printf("Could not assign window width value.\n");
+        return 1;
+    }
+    OSIIA1_print_horirontal_line(NULL, NULL, 2);
     printf(BOOTING_SEQUENCE);
     OSIIA1_print_horirontal_line(NULL, NULL, 1);
     OSIIA1_print_horirontal_line(NULL, " ", 1);
