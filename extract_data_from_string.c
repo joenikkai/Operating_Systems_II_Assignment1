@@ -1,7 +1,7 @@
 #include "pattern.h"
 #include <stdio.h>
 
-/*TODO: write tests for this function*/
+
 struct extracted_strings *extract_data_from_string(char *s) /* \deprecated if no tests are written \attention extracts all regex groups and stores them in a struct containing the number of strings, the length of each string and the data of each string \brief includes the whole match.*/
 {
     /* check for regex match */
