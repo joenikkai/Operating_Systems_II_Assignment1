@@ -24,5 +24,5 @@ static inline void OSIIA1_millisecond_sleep(time_t time_quanta)
     nanosleep(&ts, NULL);
 }
 #else
-#error "This code might not work in your platform please implemement the code for your secific os and push it to us."
+#error PLATFORM_COMPATIBILITY_ERROR
 #endif /* platform */

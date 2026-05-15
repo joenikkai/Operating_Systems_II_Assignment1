@@ -30,6 +30,6 @@ void get_current_terminal_width(int *rows, int *cols)
         *rows = *cols = 0;
     }
 #else
-#error "This code might not work for your platfrom. Make custom code that works for your platform and submit\n"
+#error PLATFORM_COMPATIBILITY_ERROR 
 #endif /* platform */
 }

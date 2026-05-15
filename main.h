@@ -4,6 +4,8 @@
 
 #define PROGRAM_NAME "Operating_Systems_II_Assignment1"
 
+#define PLATFORM_COMPATIBILITY_ERROR "This code might not work for your platfrom. Make custom code that works for your platform and submit it to us\n"
+
 #include "input.h"
 #include "pattern.h"
 
