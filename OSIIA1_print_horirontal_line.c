@@ -25,8 +25,6 @@ void OSIIA1_print_horirontal_line(int *len, char *c,int n)
         putchar(ch);
     }
     putchar('\n');
-    if (!n)
-    {
+    if (n>0)
         OSIIA1_print_horirontal_line(len, c, n - 1);
-    }
 }
