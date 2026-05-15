@@ -2,6 +2,7 @@
 #include "pattern.h"
 #include "jobs.h"
 #include "timer.h"
+#include "OSIIA1_threads.h"
 
 int main_program(int argc, char **argv)
 {

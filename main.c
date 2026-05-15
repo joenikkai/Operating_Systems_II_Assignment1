@@ -31,7 +31,7 @@ int main(int argc,char **argv)
     starting_time = time(NULL);
     /* allocate buckets */
     /* incomming buckets */
-    in_bucket = calloc(MAXIMUM_IN_JI_ACCUMULATION, sizeof(struct Bucket));
+    in_bucket = calloc(MAXIMUM_IN_JI_ACCUMULATION + 1, sizeof(struct Bucket));
 
     /* initalize bucket values */
     in_bucket->maximum_ji_accummulation = MAXIMUM_IN_JI_ACCUMULATION;
@@ -39,7 +39,7 @@ int main(int argc,char **argv)
     in_bucket->ji = NULL;
 
     /* outging bucket */
-    out_bucket = calloc(MAXIMUM_OUT_JI_ACCUMULATION, sizeof(struct Bucket));
+    out_bucket = calloc(MAXIMUM_OUT_JI_ACCUMULATION + 1, sizeof(struct Bucket));
 
     /* initalize bucket values */
     out_bucket->maximum_ji_accummulation = MAXIMUM_OUT_JI_ACCUMULATION;
@@ -47,7 +47,7 @@ int main(int argc,char **argv)
     out_bucket->ji = NULL;
 
     /* suspended bucket */
-    sus_bucket = calloc(MAXIMUM_SUS_JI_ACCUMULATION, sizeof(struct Bucket));
+    sus_bucket = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct Bucket));
 
     /* initalize bucket values */
     sus_bucket->maximum_ji_accummulation = MAXIMUM_SUS_JI_ACCUMULATION;
