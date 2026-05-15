@@ -13,7 +13,7 @@ void handle_user_input()
 
     if (strlen(input) <= 0)
     {
-        return 0;
+        return (PROGRAM_IS_RUNNING=0);
     }
     
     struct extracted_strings *es = extract_data_from_string(input);
