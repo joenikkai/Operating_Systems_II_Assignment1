@@ -8,14 +8,14 @@ void handle_user_input()
     char *input = get_user_input();
     
     if (strcmp(OSIIA1_strn_to_lower(input, (size_t)strlen(input)), "exit") == 0)
-        return;
-    /* --- */
-
-    if (strlen(input) <= 0)
     {
         PROGRAM_IS_RUNNING = 0;
         return;
     }
+
+    if (strlen(input) <= 0)
+        return;
+    /* --- */
     
     struct extracted_strings *es = extract_data_from_string(input);
     if (!es)
