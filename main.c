@@ -8,8 +8,8 @@
 #include "pattern.h"
 #include "OSIIA1_terminal.h"
 
-int *WINDOW_WIDTH;
-int *WINDOW_HEIGHT;
+int WINDOW_WIDTH = 0;
+int WINDOW_HEIGHT = 0;
 
 int RET;
 regex_t REGEX;
