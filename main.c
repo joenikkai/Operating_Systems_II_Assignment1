@@ -18,7 +18,10 @@ regex_t REGEX;
 int main(int argc,char **argv)
 {
     get_current_terminal_width(WINDOW_HEIGHT, WINDOW_WIDTH);
+    OSIIA1_print_horirontal_line(NULL, NULL,2);
     printf(BOOTING_SEQUENCE);
+    OSIIA1_print_horirontal_line(NULL, NULL, 1);
+    OSIIA1_print_horirontal_line(NULL, " ", 1);
     read_history(HISTORY_FILE);
     stifle_history(HISTORY_MAX);
     
