@@ -32,5 +32,6 @@ extern struct Bucket *in_bucket; /* incoming processes */
 extern struct Bucket *out_bucket; /* outgoing processes */
 extern struct Bucket *sus_bucket; /* suspended but not finished processes */
 
+extern uint16_t NUMBER_OF_JOBS;
 
 #endif // OSIIA1_THREADS_H

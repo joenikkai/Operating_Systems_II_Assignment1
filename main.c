@@ -26,7 +26,9 @@ struct Bucket *in_bucket = NULL;
 struct Bucket *out_bucket = NULL;
 struct Bucket *sus_bucket = NULL;
 
-int main(int argc,char **argv)
+uint16_t NUMBER_OF_JOBS = 1;
+
+int main(int argc, char **argv)
 {
     starting_time = time(NULL);
     /* allocate buckets */
