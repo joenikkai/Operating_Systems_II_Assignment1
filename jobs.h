@@ -16,4 +16,6 @@ struct Job *get_new_job(struct extracted_strings* es);
 void free_job();
 time_t get_job_burst_time(struct Job *j);
 void push_new_job_instance(struct Job *j);
+void pop_instance_to(void *src, void *dest);
+
 #endif // JOBS_H
