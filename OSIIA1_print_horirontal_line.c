@@ -6,7 +6,7 @@ void OSIIA1_print_horirontal_line(int *len, char *c,int n)
     if (!n)
         return;
     /* --- */
-    int l = WINDOW_WIDTH;
+    int l = *WINDOW_WIDTH;
     if (len)
         l = *len;
     /* --- */
