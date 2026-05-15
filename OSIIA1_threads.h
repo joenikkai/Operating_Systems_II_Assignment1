@@ -30,11 +30,10 @@ typedef pthread_t OSIIA1_thread_t;
 #include <stdint.h>
 
 #define MAXIMUM_IN_JI_ACCUMULATION ((uint16_t)(255)) /* incomming job instance accummulation */
-#define MAXIMUM_OUT_JI_ACCUMULATION ((uint16_t)(1023)) /* outgoing job instance accummulation */
-#define MAXIMUM_SUS_JI_ACCUMULATION ((uint16_t)(MAXIMUM_OUT_JI_ACCUMULATION - MAXIMUM_IN_JI_ACCUMULATION)) /* suspended job instance accummulation */
+#define MAXIMUM_SUS_JI_ACCUMULATION ((uint16_t)(1023)) /* suspended job instance accummulation */
 
 struct job_instance {
-    uint8_t job_id;
+    uint16_t job_id;
     struct Job *j;
 };
 
@@ -45,12 +44,34 @@ struct Bucket
     uint16_t maximum_ji_accummulation;
 };
 
-extern struct Bucket *in_bucket; /* incoming processes */
-extern struct Bucket *out_bucket; /* outgoing processes */
+struct job_instance_record {
+    uint16_t job_id;
+    char *message;
+    time_t burst_time;
+};
+
+extern struct Bucket *in_bucket; /* outgoing processes */
 extern struct Bucket *sus_bucket; /* suspended but not finished processes */
 
 extern uint16_t NUMBER_OF_JOBS;
-extern volatile uint16_t cpu_is_executing;
+extern volatile uint16_t CPU_IS_EXECUTING;
+
+extern struct job_instance *CURRENT_JOB;
 
 void free_bucket(struct Bucket *b);
+
+
+int handle_user_input(int argc,char** argv); /* will contain everything that the main program has now `That is the input loop`*/
+struct job_instance *extract_job_instance(struct job_instance *ji);
+struct job_instance *load_job_instance(struct job_instance *ji);
+void execute_job_instance(struct job_instance *ji);
+
+/**
+ * Add ways to 
+ * - load 
+ * - sort
+ * - search
+ * - and other vital info
+ */
+
 #endif // OSIIA1_THREADS_H
