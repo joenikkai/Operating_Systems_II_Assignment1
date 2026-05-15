@@ -1,8 +1,11 @@
 #include "main.h"
 #include "OSIIA1_terminal.h"
 
-void OSIIA1_print_horirontal_line(int *len, char *c)
+void OSIIA1_print_horirontal_line(int *len, char *c,int n)
 {
+    if (!n)
+        return;
+    /* --- */
     int l = WINDOW_WIDTH;
     if (len)
         l = *len;
