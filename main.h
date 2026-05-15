@@ -18,6 +18,8 @@
     "(exitEXIT) to exit the program\n"
 /* end of defines */
 
+#define DEBUG
+
 int main_program(int argc, char **argv);
 #if defined(TEST_THIS_CODE)
 int testing_program(int argc, char **argv);

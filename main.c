@@ -21,7 +21,9 @@ time_t end_time_for_previous_job;
 
 int main(int argc,char **argv)
 {
+#if defined(DEBUG) 
     printf("We are here\n");
+#endif // DEBUG
     get_current_terminal_width(&WINDOW_HEIGHT, &WINDOW_WIDTH);
     if (!WINDOW_HEIGHT)
     {
@@ -36,6 +38,8 @@ int main(int argc,char **argv)
     OSIIA1_print_horirontal_line(NULL, "=", 1);
     printf(BOOTING_SEQUENCE);
     OSIIA1_print_horirontal_line(NULL, NULL, 1);
+    printf("Yay! Welcome dear user.\n");
+    OSIIA1_print_horirontal_line(NULL, " ", 1);
     OSIIA1_print_horirontal_line(NULL, " ", 1);
     printf("Yay! Welcome dear user.\n");
     read_history(HISTORY_FILE);
