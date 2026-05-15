@@ -29,10 +29,11 @@ int main(int argc,char **argv)
         printf("Could not assign window width value.\n");
         return 1;
     }
-    OSIIA1_print_horirontal_line(NULL, NULL, 2);
+    OSIIA1_print_horirontal_line(NULL, "=", 1);
     printf(BOOTING_SEQUENCE);
     OSIIA1_print_horirontal_line(NULL, NULL, 1);
     OSIIA1_print_horirontal_line(NULL, " ", 1);
+    printf("Yay! Welcome dear user.\n");
     read_history(HISTORY_FILE);
     stifle_history(HISTORY_MAX);
     
