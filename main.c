@@ -6,10 +6,14 @@
 
 #include "input.h"
 #include "pattern.h"
+#include "OSIIA1_terminal.h"
 
+int WINDOW_WIDTH = 0;
+int WINDOW_HEIGHT = 0;
 
 int RET;
 regex_t REGEX;
+
 
 time_t time_quanta;
 time_t starting_time;
@@ -17,7 +21,23 @@ time_t end_time_for_previous_job;
 
 int main(int argc,char **argv)
 {
-    printf( BOOTING_SEQUENCE);
+    printf("We are here\n");
+    get_current_terminal_width(&WINDOW_HEIGHT, &WINDOW_WIDTH);
+    if (!WINDOW_HEIGHT)
+    {
+        printf("Could not assign window height value.\n");
+        return 1;
+    }
+    if (!WINDOW_WIDTH)
+    {
+        printf("Could not assign window width value.\n");
+        return 1;
+    }
+    OSIIA1_print_horirontal_line(NULL, "=", 1);
+    printf(BOOTING_SEQUENCE);
+    OSIIA1_print_horirontal_line(NULL, NULL, 1);
+    OSIIA1_print_horirontal_line(NULL, " ", 1);
+    printf("Yay! Welcome dear user.\n");
     read_history(HISTORY_FILE);
     stifle_history(HISTORY_MAX);
     
