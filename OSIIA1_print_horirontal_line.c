@@ -13,6 +13,11 @@ void OSIIA1_print_horirontal_line(int *len, char *c)
     /* --- */
     for (int i = 0; i < l; i++)
     {
-        putchar(c);
+        putchar(ch);
+    }
+    putchar('\n');
+    if (!n)
+    {
+        OSIIA1_print_horirontal_line(len, c, n - 1);
     }
 }
