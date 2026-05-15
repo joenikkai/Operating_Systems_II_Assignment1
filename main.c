@@ -13,6 +13,8 @@
 
 volatile int program_is_running = 1;
 
+volatile uint16_t cpu_is_executing = 0;
+
 int WINDOW_WIDTH = 0;
 int WINDOW_HEIGHT = 0;
 
