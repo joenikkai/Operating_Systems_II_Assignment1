@@ -43,6 +43,6 @@ We will use the GNU readline library to get user input.
 
 This is how our loop looks like
 <div>
-<video src="./docs/media/video.mp4" alt="REPL demonstration mp4" controls ></video>
+<video src="./docs/media/video.mkv" alt="REPL demonstration mp4" controls ></video>
 </div>
 <img src="./docs/media/picture.png" alt="REPL demonstration mp4">
