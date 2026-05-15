@@ -8,6 +8,8 @@
 #include "pattern.h"
 #include "OSIIA1_terminal.h"
 
+#undef DEBUG
+
 int WINDOW_WIDTH = 0;
 int WINDOW_HEIGHT = 0;
 
@@ -15,13 +17,14 @@ int RET;
 regex_t REGEX;
 
 
-time_t time_quanta;
-time_t starting_time;
-time_t end_time_for_previous_job;
+time_t time_quanta = 1;
+time_t starting_time = 0;
+time_t end_time_for_previous_job = 0;
 
 int main(int argc,char **argv)
 {
-#if defined(DEBUG) 
+    starting_time = time(NULL);
+#if defined(DEBUG)
     printf("We are here\n");
 #endif // DEBUG
     get_current_terminal_width(&WINDOW_HEIGHT, &WINDOW_WIDTH);
@@ -41,7 +44,6 @@ int main(int argc,char **argv)
     printf("Yay! Welcome dear user.\n");
     OSIIA1_print_horirontal_line(NULL, " ", 1);
     OSIIA1_print_horirontal_line(NULL, " ", 1);
-    printf("Yay! Welcome dear user.\n");
     read_history(HISTORY_FILE);
     stifle_history(HISTORY_MAX);
     
@@ -64,5 +66,11 @@ int main(int argc,char **argv)
 
     /* the write history must exists */
     write_history(HISTORY_FILE);
+    OSIIA1_print_horirontal_line(NULL, " ", 1);
+    OSIIA1_print_horirontal_line(NULL, "-", 1);
+    printf("This program ran for %zu seconds.\n", time(NULL) - starting_time);
+    OSIIA1_print_horirontal_line(NULL, "~", 1);
+    OSIIA1_print_horirontal_line(NULL, " ", 1);
+    printf("Goodbye. Hope well see you next time.\n");
     return retval;
 }
