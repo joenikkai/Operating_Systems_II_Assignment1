@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 #define MAXIMUM_IN_JI_ACCUMULATION ((uint16_t)(255)) /* incomming job instance accummulation */
-#define MAXIMUM_OUT_JI_ACCUMULATION ((uint16_t)(1023)) /* completeted job instance accummulation */
+#define MAXIMUM_OUT_JI_ACCUMULATION ((uint16_t)(1023)) /* outgoing job instance accummulation */
 #define MAXIMUM_SUS_JI_ACCUMULATION ((uint16_t)(MAXIMUM_OUT_JI_ACCUMULATION - MAXIMUM_IN_JI_ACCUMULATION)) /* suspended job instance accummulation */
 
 struct job_instance {
@@ -30,7 +30,7 @@ struct Bucket
 };
 
 extern struct Bucket *in_bucket; /* incoming processes */
-extern struct Bucket *out_bucket; /* completed processes */
+extern struct Bucket *out_bucket; /* outgoing processes */
 extern struct Bucket *sus_bucket; /* suspended but not finished processes */
 
 
