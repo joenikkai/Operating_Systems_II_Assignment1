@@ -29,6 +29,6 @@ char *OSIIA1_strn_to_lower(char *s, size_t l);
 extern int WINDOW_WIDTH; /* \brief The width of the current terminal */
 extern int WINDOW_HEIGHT;/* \brief The height of the current terminal */
 
-extern volatile int program_is_running; /* set to 0 so as to stop the pro */
+extern volatile int PROGRAM_IS_RUNNING; /* set to 0 so as to stop the pro */
 
 #endif // MAIN_H

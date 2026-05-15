@@ -11,9 +11,11 @@
 
 #undef DEBUG
 
-volatile int program_is_running = 1;
+volatile int PROGRAM_IS_RUNNING = 1;
 
-volatile uint16_t cpu_is_executing = 0;
+volatile uint16_t CPU_IS_EXECUTING = 0;
+
+struct job_instance *CURRENT_JOB = NULL;
 
 int WINDOW_WIDTH = 0;
 int WINDOW_HEIGHT = 0;
@@ -22,9 +24,9 @@ int RET;
 regex_t REGEX;
 
 
-time_t time_quanta = 1;
-time_t starting_time = 0;
-time_t end_time_for_previous_job = 0;
+time_t TIME_QUANTA = 1;
+time_t STARTING_TIME = 0;
+time_t END_TIME_FOR_PREVIOUS_JOB = 0;
 
 struct Bucket *in_bucket = NULL;
 struct Bucket *sus_bucket = NULL;
@@ -33,7 +35,7 @@ uint16_t NUMBER_OF_JOBS = 1;
 
 int main(int argc, char **argv)
 {
-    starting_time = time(NULL);
+    STARTING_TIME = time(NULL);
     /* allocate buckets */
     /* incomming buckets */
     in_bucket = calloc(1, sizeof(struct Bucket));
@@ -95,7 +97,7 @@ int main(int argc, char **argv)
     write_history(HISTORY_FILE);
     OSIIA1_print_horirontal_line(NULL, " ", 1);
     OSIIA1_print_horirontal_line(NULL, "-", 1);
-    printf("This program ran for %zu seconds.\n", time(NULL) - starting_time);
+    printf("This program ran for %zu seconds.\n", time(NULL) - STARTING_TIME);
     OSIIA1_print_horirontal_line(NULL, "~", 1);
     OSIIA1_print_horirontal_line(NULL, " ", 1);
     printf("Goodbye. Hope well see you next time.\n");
