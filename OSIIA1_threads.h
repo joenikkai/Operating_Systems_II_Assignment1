@@ -18,7 +18,7 @@
 
 struct job_instance {
     uint8_t job_id;
-    struct Job* j;
+    struct Job *j;
 };
 
 struct Bucket
