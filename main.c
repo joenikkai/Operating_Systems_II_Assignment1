@@ -17,7 +17,8 @@ regex_t REGEX;
 
 int main(int argc,char **argv)
 {
-    printf( BOOTING_SEQUENCE);
+    get_current_terminal_width(WINDOW_HEIGHT, WINDOW_WIDTH);
+    printf(BOOTING_SEQUENCE);
     read_history(HISTORY_FILE);
     stifle_history(HISTORY_MAX);
     
