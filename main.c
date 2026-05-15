@@ -11,6 +11,8 @@
 
 #undef DEBUG
 
+volatile int program_is_running = 1;
+
 int WINDOW_WIDTH = 0;
 int WINDOW_HEIGHT = 0;
 
@@ -23,7 +25,6 @@ time_t starting_time = 0;
 time_t end_time_for_previous_job = 0;
 
 struct Bucket *in_bucket = NULL;
-struct Bucket *out_bucket = NULL;
 struct Bucket *sus_bucket = NULL;
 
 uint16_t NUMBER_OF_JOBS = 1;
@@ -39,14 +40,6 @@ int main(int argc, char **argv)
     in_bucket->maximum_ji_accummulation = MAXIMUM_IN_JI_ACCUMULATION;
     in_bucket->ji_accummulation = 0;
     in_bucket->ji = calloc(MAXIMUM_IN_JI_ACCUMULATION + 1, sizeof(struct job_instance));
-
-    /* outging bucket */
-    out_bucket = calloc(1, sizeof(struct Bucket));
-
-    /* initalize bucket values */
-    out_bucket->maximum_ji_accummulation = MAXIMUM_OUT_JI_ACCUMULATION;
-    out_bucket->ji_accummulation = 0;
-    out_bucket->ji = calloc(MAXIMUM_OUT_JI_ACCUMULATION + 1, sizeof(struct job_instance));
 
     /* suspended bucket */
     sus_bucket = calloc(1, sizeof(struct Bucket));
@@ -107,8 +100,6 @@ int main(int argc, char **argv)
     OSIIA1_print_horirontal_line(NULL, " ", 2);
     if (in_bucket)
         free_bucket(in_bucket);
-    if (out_bucket)
-        free_bucket(out_bucket);
     if (sus_bucket)
         free_bucket(sus_bucket);
     return retval;
