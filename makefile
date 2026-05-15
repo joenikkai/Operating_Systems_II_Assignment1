@@ -1,5 +1,10 @@
-# i used \x86_64-w64-mingw32-gcc and x86_64-w64-mingw32-gcc for this project
-CC ?= gcc
+# i used \x86_64-w64-mingw32-gcc and \x86_64-redhat-linux-gcc for this project
+CC ?= 
+
+ifndef $(CC)
+CC := gcc
+endif
+
 
 # This flag is enabled so that we can pass the -DTEST_THIS_CODE flag
 MACROS_FLAGS ?=
