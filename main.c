@@ -38,6 +38,8 @@ int main(int argc,char **argv)
         printf("Could not assign window width value.\n");
         return 1;
     }
+    OSIIA1_print_horirontal_line(NULL, " ", 1);
+    OSIIA1_print_horirontal_line(NULL, " ", 1);
     OSIIA1_print_horirontal_line(NULL, "=", 1);
     printf(BOOTING_SEQUENCE);
     OSIIA1_print_horirontal_line(NULL, NULL, 1);
