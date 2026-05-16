@@ -9,7 +9,7 @@ extern int RET;
 extern regex_t REGEX;
 /* regex pattern */
 #define UINT8_T__PATTERN "(25[0-5]|2[0-4][0-4]|[0-1]?[0-9]?[0-9])"
-#define PATTERN "^[[:space:]]*"UINT8_T__PATTERN"[[:space:]]*\"([^\"]+)\"[[:space:]]*"UINT8_T__PATTERN"[[:space:]]*$"
+#define PATTERN "^[[:space:]]*" UINT8_T__PATTERN "[[:space:]]*\"([^\"]+)\"[[:space:]]*" UINT8_T__PATTERN "[[:space:]]*$"
 #define PATTERN_GROUPS 4
 
 /*
