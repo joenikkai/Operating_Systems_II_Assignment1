@@ -1,4 +1,4 @@
-#include "pattern.h"
+#include "OSIIA1_pattern.h"
 #include <stdio.h>
 
 

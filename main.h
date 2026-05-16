@@ -7,7 +7,7 @@
 #define PLATFORM_COMPATIBILITY_ERROR "This code might not work for your platfrom. Make custom code that works for your platform and submit it to us\n"
 
 #include "input.h"
-#include "pattern.h"
+#include "OSIIA1_pattern.h"
 
 #define BOOTING_SEQUENCE "$ > 9  \"Execution of write file syscall\" 0\n" \
     "    ^          ^                          ^\n" \

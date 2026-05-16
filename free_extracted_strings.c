@@ -1,4 +1,4 @@
-#include "pattern.h"
+#include "OSIIA1_pattern.h"
 
 void free_extracted_strings(struct extracted_strings *es) /* \brief frees the es struct \deprecated if not written tests for*/
 {

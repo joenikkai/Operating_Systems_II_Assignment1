@@ -1,5 +1,5 @@
 #include "input.h"
-#include "pattern.h"
+#include "OSIIA1_pattern.h"
 
 #if defined(TEST_THIS_CODE)
 

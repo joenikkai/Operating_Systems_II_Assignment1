@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 #include <stdint.h>
-#include "pattern.h"
+#include "OSIIA1_pattern.h"
 struct Job
 {
     time_t arrival_time;

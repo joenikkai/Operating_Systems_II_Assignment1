@@ -5,7 +5,7 @@
 #include <regex.h>
 
 #include "input.h"
-#include "pattern.h"
+#include "OSIIA1_pattern.h"
 #include "OSIIA1_terminal.h"
 #include "OSIIA1_threads.h"
 
