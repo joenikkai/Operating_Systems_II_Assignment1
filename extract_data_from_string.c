@@ -5,13 +5,13 @@
 struct extracted_strings *extract_data_from_string(char *s) /* \deprecated if no tests are written \attention extracts all regex groups and stores them in a struct containing the number of strings, the length of each string and the data of each string \brief includes the whole match.*/
 {
     /* check for regex match */
-    regmatch_t matches[PATTERN_GROUPS];
-    if (regexec(&REGEX, s, PATTERN_GROUPS, matches, 0) != 0)
+    regmatch_t matches[_OSIIA1_PATTERN_GROUPS];
+    if (regexec(&REGEX, s, _OSIIA1_PATTERN_GROUPS, matches, 0) != 0)
         return NULL; /* if no matches */
     
     /* new es obj */
     struct extracted_strings *es = calloc(1, sizeof(struct extracted_strings));
-    es->number_of_groups = PATTERN_GROUPS;
+    es->number_of_groups = _OSIIA1_PATTERN_GROUPS;
     es->length_of_strings = calloc(es->number_of_groups, sizeof(size_t));
     es->strings = calloc(es->number_of_groups, sizeof(char *));
 

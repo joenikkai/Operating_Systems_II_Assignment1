@@ -80,7 +80,7 @@ int main(int argc, char **argv)
     int retval = 0;
 
     /* initialize regex */
-    RET = regcomp(&REGEX,PATTERN,REG_EXTENDED | REG_ICASE);
+    RET = regcomp(&REGEX,_OSIIA1_PATTERN,REG_EXTENDED | REG_ICASE);
     if (RET) {
         char errbuff[1024];
         regerror(RET,&REGEX,errbuff,sizeof(errbuff));

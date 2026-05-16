@@ -1,5 +1,5 @@
-#if !defined(PATTERN_H)
-#define PATTERN_H
+#if !defined(_OSIIA1_PATTERN_H)
+#define _OSIIA1_PATTERN_H
 
 #include <regex.h>
 #include <stdlib.h>
@@ -8,9 +8,9 @@
 extern int RET;
 extern regex_t REGEX;
 /* regex pattern */
-#define UINT8_T__PATTERN "(25[0-5]|2[0-4][0-4]|[0-1]?[0-9]?[0-9])"
-#define PATTERN "^[[:space:]]*" UINT8_T__PATTERN "[[:space:]]*\"([^\"]+)\"[[:space:]]*" UINT8_T__PATTERN "[[:space:]]*$"
-#define PATTERN_GROUPS 4
+#define UINT8_T___OSIIA1_PATTERN "(25[0-5]|2[0-4][0-4]|[0-1]?[0-9]?[0-9])"
+static const char _OSIIA1_PATTERN[] = "^[[:space:]]*" UINT8_T___OSIIA1_PATTERN "[[:space:]]*\"([^\"]+)\"[[:space:]]*" UINT8_T___OSIIA1_PATTERN "[[:space:]]*$";
+#define _OSIIA1_PATTERN_GROUPS 4
 
 /*
 matches == 4
@@ -35,4 +35,4 @@ struct extracted_strings *test_extracted_data_from_string();
 void test_free_extracted_strings(struct extracted_strings *es);
 #endif // TEST_THIS_CODE
 
-#endif // PATTERN_H
+#endif // _OSIIA1_PATTERN_H
