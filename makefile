@@ -5,17 +5,16 @@ ifndef $(CC)
 CC := gcc
 endif
 
-BINARY ?=
+BINARY ?= 
 
-ifndef $(BINARY)
-	ifeq ( $(CC), x86_64-w64-mingw32-gcc )
+ifneq (,$(findstring x86_64-w64-mingw32-gcc,$(CC)))
 	$(info cross compiling for windows)
-	# posix wrapper
 	WGWFLAGS = -static 
 	WGWLDFLAGS = -lregex
-	BINARY := Operating_Systems_II_Assignment1.exe
+	ifndef BINARY
+		BINARY := Operating_Systems_II_Assignment1.exe
 	else
-	BINARY := Operating_Systems_II_Assignment1
+		BINARY := Operating_Systems_II_Assignment1
 	endif
 endif
 
@@ -47,7 +46,7 @@ all: $(BINARY)
 
 $(BINARY): $(OBJECTS)
 	@echo "LINKING: $^"
-	@$(CC) -o $@ $^ $(FLAGS) $(LDFLAGS)
+	$(CC) -o $@ $^ $(FLAGS) $(LDFLAGS)
 
 run: $(BINARY)
 	@echo "RUNNING: $<"
