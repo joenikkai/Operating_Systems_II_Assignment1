@@ -34,4 +34,5 @@ void free_extracted_strings(struct extracted_strings *es);
 struct extracted_strings *test_extracted_data_from_string();
 void test_free_extracted_strings(struct extracted_strings *es);
 #endif // TEST_THIS_CODE
+
 #endif // PATTERN_H
