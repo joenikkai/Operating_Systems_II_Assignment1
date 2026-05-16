@@ -9,7 +9,7 @@ void *handle_user_input(void* args)
 {
     char *input = get_user_input();
     
-    if (strcmp(OSIIA1_strn_to_lower(input, (size_t)strlen(input)), "exit") == 0)
+    if (strcmp(OSIIA1_strn_to_lower(OSIIA1_trim_leading_and_trailing_whitespace(input), (size_t)strlen(input)), "exit") == 0)
     {
         PROGRAM_IS_RUNNING = 0;
         return NULL;
