@@ -49,7 +49,7 @@ extern struct Bucket *SUS_BUCKET; /* suspended but not finished processes */
 extern volatile uint16_t NUMBER_OF_JOBS;
 extern volatile uint16_t CPU_IS_EXECUTING;
 
-extern struct job_instance *CURRENT_JOB;
+extern struct job_instance *CURRENT_JOB; /* this is basically the register */
 
 void free_job_instance(struct job_instance *ji);
 void free_bucket(struct Bucket *b);
