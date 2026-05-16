@@ -60,5 +60,5 @@ flowchart
     omega([End])
 ```
 
-[Proccess illustration](./)
+![Proccess illustration](./docs/media/proccess_illustration.svg)
 
