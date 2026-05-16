@@ -1,4 +1,4 @@
-# i used \x86_64-w64-mingw32-gcc and \x86_64-redhat-linux-gcc for this project
+
 CC ?= 
 
 ifndef $(CC)
@@ -7,15 +7,8 @@ endif
 
 BINARY ?= 
 
-ifneq (,$(findstring x86_64-w64-mingw32-gcc,$(CC)))
-	$(info cross compiling for windows)
-	WGWFLAGS = -static 
-	WGWLDFLAGS = -lregex
-	ifndef BINARY
-		BINARY := Operating_Systems_II_Assignment1.exe
-	else
-		BINARY := Operating_Systems_II_Assignment1
-	endif
+ifndef BINARY
+  BINARY := Operating_Systems_II_Assignment1
 endif
 
 
@@ -58,4 +51,4 @@ clean:
 
 help:
 	@echo "`make` to compile"
-	@echo "to copile for a windows add CC=x86_64-w64-mingw32-gcc else don't add"
+	@echo flags are clean run

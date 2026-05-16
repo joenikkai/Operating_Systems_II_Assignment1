@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <time.h>
 
-#if defined(__WIN32)
-#include <windows.h>
-#endif // __WIN32
 
 /*
     We are going to use CPU time and not adjusted c time `time_t`.
