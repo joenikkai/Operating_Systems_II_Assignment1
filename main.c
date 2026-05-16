@@ -31,7 +31,7 @@ time_t END_TIME_FOR_PREVIOUS_JOB = 0;
 struct Bucket *IN_BUCKET = NULL;
 struct Bucket *SUS_BUCKET = NULL;
 
-uint16_t NUMBER_OF_JOBS = 1;
+volatile uint16_t NUMBER_OF_JOBS = 1;
 
 int main(int argc, char **argv)
 {
