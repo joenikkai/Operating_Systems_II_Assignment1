@@ -43,7 +43,6 @@ void handle_user_input()
 
     free_job(new_job);
     free_extracted_strings(es);
-    free(input);
     
     if (input)
         free(input);
