@@ -15,6 +15,6 @@ extern time_t STARTING_TIME;
 extern time_t END_TIME_FOR_PREVIOUS_JOB; /* might be the same as frequency */
 
 /* OSIIA1 means Operating Systems II (Romanus 2) Assignment 1 */
-static inline void OSIIA1_millisecond_sleep(time_t time_quanta);
-static inline void OSIIA1_sleep(time_t time_quanta);
+static void OSIIA1_millisecond_sleep(time_t time_quanta);
+static void OSIIA1_sleep(time_t time_quanta);
 #endif // TIMER_H

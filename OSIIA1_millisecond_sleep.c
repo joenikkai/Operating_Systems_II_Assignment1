@@ -1,6 +1,6 @@
 #include "timer.h"
 
-static inline void OSIIA1_millisecond_sleep(time_t time_quanta)
+static void OSIIA1_millisecond_sleep(time_t time_quanta)
 {
 
 /**
