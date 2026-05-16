@@ -12,18 +12,18 @@ void *handle_user_input(void* args)
     if (strcmp(OSIIA1_strn_to_lower(input, (size_t)strlen(input)), "exit") == 0)
     {
         PROGRAM_IS_RUNNING = 0;
-        return;
+        return NULL;
     }
 
     if (strlen(input) <= 0)
-        return;
+        return NULL;
     /* --- */
     
     struct extracted_strings *es = extract_data_from_string(input);
     if (!es)
     {
         printf("command `%s' not found.\n", input);
-        return;
+        return NULL;
     }
 
     /* make a new job */
@@ -31,7 +31,7 @@ void *handle_user_input(void* args)
     if (!new_job)
     {
         printf("could not make a new job\n");
-        return;
+        return NULL;
     }
 #if defined(DEBUG)
     printf("arrival time: %zu | burst time: %hhu | exit message: %s | exit code: %hhu\n", new_job->arrival_time, new_job->burst, new_job->e_msg, new_job->e_code);
@@ -56,5 +56,5 @@ void *handle_user_input(void* args)
     if (input)
         free(input);
     /* --- */
-    return;
+    return NULL;
 }
