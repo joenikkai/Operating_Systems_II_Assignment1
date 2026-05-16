@@ -35,11 +35,15 @@ void handle_user_input()
     printf("arrival time: %zu | burst time: %hhu | exit message: %s | exit code: %hhu\n", new_job->arrival_time, new_job->burst, new_job->e_msg, new_job->e_code);
 #endif // DEBUG
 
-    if (in_bucket->ji_accummulation <= MAXIMUM_IN_JI_ACCUMULATION)
+    if (IN_BUCKET->ji_accummulation <= MAXIMUM_IN_JI_ACCUMULATION)
     {
         push_new_job_instance(new_job);
+        printf("appended job  [ job id: %hx ]\n",IN_BUCKET);
     }
-    printf("maximum number of jobs at a time is reached wait for the program to complete execution");
+    else
+    {
+        printf("maximum number of jobs at a time is reached wait for the program to complete execution\n");
+    }
 
     free_job(new_job);
     free_extracted_strings(es);

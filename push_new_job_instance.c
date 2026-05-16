@@ -5,6 +5,9 @@ void push_new_job_instance(struct Job* j)
 {
     if (!j)
         return;
+    /* --- */
+    
+    /* create a new job instance  */
     struct job_instance ji;
     ji.job_id = NUMBER_OF_JOBS++;
     
@@ -13,6 +16,7 @@ void push_new_job_instance(struct Job* j)
     ji.j->arrival_time = j->arrival_time;
     ji.j->burst = j->burst;
     ji.j->e_code = j->e_code;
+
     if (!j->e_msg)
     {
         ji.j->e_msg = strdup("Custom Message [ No String Was Provided ].\n");
@@ -21,5 +25,5 @@ void push_new_job_instance(struct Job* j)
     {
         ji.j->e_msg = strdup(j->e_msg);
     }
-    in_bucket->ji[in_bucket->ji_accummulation++] = ji;
+    IN_BUCKET->ji[IN_BUCKET->ji_accummulation++] = ji;
 }

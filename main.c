@@ -28,7 +28,7 @@ time_t TIME_QUANTA = 1;
 time_t STARTING_TIME = 0;
 time_t END_TIME_FOR_PREVIOUS_JOB = 0;
 
-struct Bucket *in_bucket = NULL;
+struct Bucket *IN_BUCKET = NULL;
 struct Bucket *sus_bucket = NULL;
 
 uint16_t NUMBER_OF_JOBS = 1;
@@ -38,12 +38,12 @@ int main(int argc, char **argv)
     STARTING_TIME = time(NULL);
     /* allocate buckets */
     /* incomming buckets */
-    in_bucket = calloc(1, sizeof(struct Bucket));
+    IN_BUCKET = calloc(1, sizeof(struct Bucket));
 
     /* initalize bucket values */
-    in_bucket->maximum_ji_accummulation = MAXIMUM_IN_JI_ACCUMULATION;
-    in_bucket->ji_accummulation = 0;
-    in_bucket->ji = calloc(MAXIMUM_IN_JI_ACCUMULATION + 1, sizeof(struct job_instance));
+    IN_BUCKET->maximum_ji_accummulation = MAXIMUM_IN_JI_ACCUMULATION;
+    IN_BUCKET->ji_accummulation = 0;
+    IN_BUCKET->ji = calloc(MAXIMUM_IN_JI_ACCUMULATION + 1, sizeof(struct job_instance));
 
     /* suspended bucket */
     sus_bucket = calloc(1, sizeof(struct Bucket));
@@ -102,8 +102,8 @@ int main(int argc, char **argv)
     OSIIA1_print_horirontal_line(NULL, " ", 1);
     printf("Goodbye. Hope well see you next time.\n");
     OSIIA1_print_horirontal_line(NULL, " ", 2);
-    if (in_bucket)
-        free_bucket(in_bucket);
+    if (IN_BUCKET)
+        free_bucket(IN_BUCKET);
     if (sus_bucket)
         free_bucket(sus_bucket);
     return retval;
