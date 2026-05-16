@@ -60,54 +60,5 @@ flowchart
     omega([End])
 ```
 
-## Proccess illustration
+[Proccess illustration](./)
 
-```mermaid
-flowchart 
-    ProcessBegin --> check_exec
-
-    check_exec --True--> In_Bucket
-    check_exec --False--> cpu_exec
-
-    cpu_exec --> get_shortest
-
-    In_Bucket --> get_shortest
-    Suspended_Bucket --> take_unfinished_jobs 
-
-    take_unfinished_jobs --> get_shortest
-
-    get_shortest --> check_shortest
-
-    check_shortest -.if The current job is not the shortest job.-> Suspended_Bucket
-    check_shortest -.if The current job is the shortest job.-> check_return
-
-    check_return --If the process can still be executed--> cpu_exec
-    check_return --If the process has returned--> register
-
-    register --> ProcessReturn
-
-    %% --- %%
-    ProcessBegin([From enough job space left check])
-
-    %% Buckets
-    In_Bucket[RAM BUCKET] 
-    %% This bucket is for incoming jobs
-    Suspended_Bucket[CACHE BUCKET] 
-    %% this is for waiting jobs
-    register[record job burst time and exit time] 
-    %% this is for completed jobs
-    cpu_exec[execute for given time quanta] 
-    %% This is basically a wait clock but we will call it a cpu for illustration
-
-    check_exec{check if there is a currently executing process}
-    %% @deprecated check_new{ Check if there is a new process that has arrived}
-    check_return{ Has the current job returned? (zero burst time)}
-    
-    get_shortest[Get the shortest]
-
-    check_shortest{Is the shortest Job the current job?}
-
-    take_unfinished_jobs[\Take in the unfinished jobs\] 
-    ProcessReturn([to User input or generate report])
-
-```
