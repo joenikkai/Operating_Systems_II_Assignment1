@@ -3,7 +3,7 @@
 #include "jobs.h"
 #include "OSIIA1_threads.h"
 
-#undef DEBUG
+// #undef DEBUG
 
 void handle_user_input()
 {
@@ -40,7 +40,10 @@ void handle_user_input()
     if (IN_BUCKET->ji_accummulation <= MAXIMUM_IN_JI_ACCUMULATION)
     {
         push_new_job_instance(new_job);
-        printf("appended job  [ job id: %hx ]\n",IN_BUCKET->ji[IN_BUCKET->ji_accummulation]->job_id);
+#if defined(DEBUG)
+        printf("After pushing the new instance\n");
+#endif // DEBUG
+        printf("appended job  [ job id: %hx ]\n",IN_BUCKET->ji[IN_BUCKET->ji_accummulation-1]->job_id);
     }
     else
     {
