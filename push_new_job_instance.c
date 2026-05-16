@@ -9,6 +9,12 @@ void push_new_job_instance(struct Job* j)
     
     /* create a new job instance  */
     struct job_instance* ji = calloc(1,sizeof(struct job_instance));
+    if (!ji)
+    {
+        printf("could not allocate memory for a new job instance\n");
+        return;
+    }
+    
     ji->job_id = NUMBER_OF_JOBS++;
     
     ji->j = calloc(1,sizeof(struct Job));
