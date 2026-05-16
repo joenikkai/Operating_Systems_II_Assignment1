@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     /* initalize bucket values */
     IN_BUCKET->maximum_ji_accummulation = MAXIMUM_IN_JI_ACCUMULATION;
     IN_BUCKET->ji_accummulation = 0;
-    IN_BUCKET->ji = calloc(MAXIMUM_IN_JI_ACCUMULATION + 1, sizeof(struct job_instance));
+    IN_BUCKET->ji = calloc(MAXIMUM_IN_JI_ACCUMULATION + 1, sizeof(struct job_instance*));
 
     /* suspended bucket */
     SUS_BUCKET = calloc(1, sizeof(struct Bucket));
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     /* initalize bucket values */
     SUS_BUCKET->maximum_ji_accummulation = MAXIMUM_SUS_JI_ACCUMULATION;
     SUS_BUCKET->ji_accummulation = 0;
-    SUS_BUCKET->ji = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct job_instance));
+    SUS_BUCKET->ji = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct job_instance*));
 
 #if defined(DEBUG)
     printf("We are here\n");

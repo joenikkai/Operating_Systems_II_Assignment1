@@ -38,7 +38,7 @@ void handle_user_input()
     if (IN_BUCKET->ji_accummulation <= MAXIMUM_IN_JI_ACCUMULATION)
     {
         push_new_job_instance(new_job);
-        printf("appended job  [ job id: %hx ]\n",IN_BUCKET);
+        printf("appended job  [ job id: %hx ]\n",IN_BUCKET->ji[IN_BUCKET->ji_accummulation]->job_id);
     }
     else
     {
