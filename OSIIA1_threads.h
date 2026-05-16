@@ -33,7 +33,7 @@ struct job_instance {
 struct Bucket
 {
     struct job_instance **ji;
-    uint16_t ji_accummulation;
+    volatile uint16_t ji_accummulation;
     uint16_t maximum_ji_accummulation;
 };
 
