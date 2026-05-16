@@ -9,7 +9,7 @@ extern int RET;
 extern regex_t REGEX;
 /* regex pattern */
 #define UINT8_T___OSIIA1_PATTERN "(25[0-5]|2[0-4][0-4]|[0-1]?[0-9]?[0-9])"
-static const char _OSIIA1_PATTERN[] = "^[[:space:]]*" UINT8_T___OSIIA1_PATTERN "[[:space:]]*\"([^\"]+)\"[[:space:]]*" UINT8_T___OSIIA1_PATTERN "[[:space:]]*$";
+#define _OSIIA1_PATTERN "^[[:space:]]*" UINT8_T___OSIIA1_PATTERN "[[:space:]]*\"([^\"]+)\"[[:space:]]*" UINT8_T___OSIIA1_PATTERN "[[:space:]]*$"
 #define _OSIIA1_PATTERN_GROUPS 4
 
 /*
