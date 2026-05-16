@@ -1,4 +1,5 @@
 #include "OSIIA1_threads.h"
+#include "jobs.h"
 
 void free_job_instance(struct job_instance *ji)
 {
