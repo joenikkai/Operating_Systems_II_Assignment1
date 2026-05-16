@@ -3,9 +3,23 @@
 
 void push_new_job_instance(struct Job* j)
 {
-    struct job_instance ji = {
-        .j = j,
-        .job_id = NUMBER_OF_JOBS++
-    };
+    if (!j)
+        return;
+    struct job_instance ji;
+    ji.job_id = NUMBER_OF_JOBS++;
+    
+    ji.j = calloc(1,sizeof(struct Job));
+    
+    ji.j->arrival_time = j->arrival_time;
+    ji.j->burst = j->burst;
+    ji.j->e_code = j->e_code;
+    if (!j->e_msg)
+    {
+        ji.j->e_msg = strdup("Custom Message [ No String Was Provided ].\n");
+    }   
+    else 
+    {
+        ji.j->e_msg = strdup(j->e_msg);
+    }
     in_bucket->ji[in_bucket->ji_accummulation++] = ji;
 }

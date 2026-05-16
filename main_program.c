@@ -5,10 +5,17 @@
 
 int main_program(int argc, char **argv)
 {
+    OSIIA1_thread_t cpu_thread;
+#if defined(__WIN32)
+#elif defined(__unix__)
+#else
+#error PLATFORM_COMPATIBILITY_ERROR
+#endif
     int retval = 0;
-    while (program_is_running)
+    while (PROGRAM_IS_RUNNING)
     {
-        retval = handle_user_input(argc, argv);
+        handle_user_input();
+
     }
 
     return retval;

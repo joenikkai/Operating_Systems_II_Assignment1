@@ -5,6 +5,19 @@ ifndef $(CC)
 CC := gcc
 endif
 
+BINARY ?=
+
+ifndef $(BINARY)
+	ifeq ( $(CC), x86_64-w64-mingw32-gcc )
+	$(info cross compiling for windows)
+	# posix wrapper
+	WGWFLAGS = -static -lpcre2-posix 
+	BINARY := Operating_Systems_II_Assignment1.exe
+	else
+	BINARY := Operating_Systems_II_Assignment1
+	endif
+endif
+
 
 # This flag is enabled so that we can pass the -DTEST_THIS_CODE flag
 MACROS_FLAGS ?=
@@ -14,12 +27,10 @@ IFLAGS ?=
 IFLAGS := -I./
 
 FLAGS ?= 
-FLAGS := -std=gnu99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS)
+FLAGS := -std=gnu99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS) $(WGWFLAGS)
 
 LDFLAGS ?= 
 LDFLAGS :=  -lreadline $(LDFLAGS)
-
-BINARY ?= Operating_Systems_II_Assignment1
 
 SOURCES ?= $(shell find . -name "*.c")
 OBJECTS := $(SOURCES:%.c=%.o)
