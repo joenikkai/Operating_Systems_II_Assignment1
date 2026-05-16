@@ -7,7 +7,7 @@
  */
 static inline void OSIIA1_sleep(time_t time_quanta)
 {
-    OSIIA1_millisecond_sleep(time_quanta)
+    OSIIA1_millisecond_sleep(time_quanta);
 }
 #elif defined(__unix__)
 /**
