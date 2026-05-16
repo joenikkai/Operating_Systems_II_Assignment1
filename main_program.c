@@ -7,11 +7,9 @@ int main_program(int argc, char **argv)
 {
     /* cpu thread */
     OSIIA1_thread_t execute_job_instance_thread;
-    int execute_job_instance_thread_return_value = 0;
 
     /* handle user input  */
-    execute_job_instance_thread_return_value = pthread_create(&execute_job_instance_thread, NULL, &execute_job_instance, NULL);
-    if (execute_job_instance_thread_return_value != 0)
+    if ((pthread_create(&execute_job_instance_thread, NULL, &execute_job_instance, NULL)) != 0)
     {
         perror("pthread_create");
         return 1;
@@ -19,11 +17,9 @@ int main_program(int argc, char **argv)
 
     /* handle user input thread */
     OSIIA1_thread_t handle_user_input_thread;
-    int handle_user_input_thread_return_value = 0;
 
     /* handle user input  */
-    handle_user_input_thread_return_value = pthread_create(&handle_user_input_thread, NULL, &handle_user_input, NULL);
-    if (handle_user_input_thread_return_value != 0)
+    if ((pthread_create(&handle_user_input_thread, NULL, &handle_user_input, NULL)) != 0)
     {
         perror("pthread_create");
         return 1;
