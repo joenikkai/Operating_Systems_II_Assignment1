@@ -5,7 +5,7 @@
 
 #undef DEBUG
 
-void handle_user_input()
+void *handle_user_input(void* args)
 {
     char *input = get_user_input();
     
