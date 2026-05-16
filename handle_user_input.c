@@ -3,7 +3,7 @@
 #include "jobs.h"
 #include "OSIIA1_threads.h"
 
-// #undef DEBUG
+#undef DEBUG
 
 void handle_user_input()
 {
