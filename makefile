@@ -36,7 +36,7 @@ LDFLAGS :=  -lreadline $(LDFLAGS) $(WGWLDFLAGS)
 SOURCES ?= $(shell find . -name "*.c")
 OBJECTS := $(SOURCES:%.c=%.o)
 
-.PHONY: all clean run
+.PHONY: all clean run help
 
 all: $(BINARY)
 	@echo "Compilation complete"
@@ -56,3 +56,7 @@ run: $(BINARY)
 clean:
 	@rm $(OBJECTS) $(BINARY)
 	@echo "DELETED: $(OBJECTS) $(BINARY)"
+
+help:
+	@echo "`make` to compile"
+	@echo "to copile for a windows add CC=x86_64-w64-mingw32-gcc else don't add"
