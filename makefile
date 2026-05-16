@@ -11,7 +11,8 @@ ifndef $(BINARY)
 	ifeq ( $(CC), x86_64-w64-mingw32-gcc )
 	$(info cross compiling for windows)
 	# posix wrapper
-	WGWFLAGS = -static -lpcre2-posix 
+	WGWFLAGS = -static 
+	WGWLDFLAGS = -lpcre2-posix 
 	BINARY := Operating_Systems_II_Assignment1.exe
 	else
 	BINARY := Operating_Systems_II_Assignment1
@@ -30,7 +31,7 @@ FLAGS ?=
 FLAGS := -std=gnu99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS) $(WGWFLAGS)
 
 LDFLAGS ?= 
-LDFLAGS :=  -lreadline $(LDFLAGS)
+LDFLAGS :=  -lreadline $(LDFLAGS) $(WGWLDFLAGS)
 
 SOURCES ?= $(shell find . -name "*.c")
 OBJECTS := $(SOURCES:%.c=%.o)
