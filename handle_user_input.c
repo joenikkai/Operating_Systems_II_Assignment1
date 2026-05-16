@@ -24,18 +24,6 @@ void handle_user_input()
         return;
     }
 
-    if (in_bucket->ji_accummulation < MAXIMUM_IN_JI_ACCUMULATION)
-    {
-        printf("maximum number of jobs at a time is reached wait for the program to complete execution");
-
-        free_extracted_strings(es);
-        free(input);
-
-        if (input)
-            free(input);
-        /* --- */
-    }
-
     /* make a new job */
     struct Job *new_job = get_new_job(es);
     if (!new_job)
