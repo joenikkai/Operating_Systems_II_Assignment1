@@ -12,7 +12,7 @@ void pop_instance_to(void *src, void *dest)
         s->ji[s->ji_accummulation--] = d->ji[d->ji_accummulation++];
         return;
     }
-    if (!s->ji[s->ji_accummulation--].j)
+    if (s->ji[s->ji_accummulation--].j)
     {
         free_job(s->ji[s->ji_accummulation--].j);
     }
