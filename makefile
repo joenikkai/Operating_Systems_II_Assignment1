@@ -12,7 +12,7 @@ ifndef $(BINARY)
 	$(info cross compiling for windows)
 	# posix wrapper
 	WGWFLAGS = -static 
-	WGWLDFLAGS = -lpcre2-posix 
+	WGWLDFLAGS = -lregex
 	BINARY := Operating_Systems_II_Assignment1.exe
 	else
 	BINARY := Operating_Systems_II_Assignment1
