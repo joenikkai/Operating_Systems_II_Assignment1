@@ -53,6 +53,7 @@ void handle_user_input()
     }
     printf("maximum number of jobs at a time is reached wait for the program to complete execution");
 
+    free_job(new_job);
     free_extracted_strings(es);
     free(input);
     
