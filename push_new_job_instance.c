@@ -1,6 +1,8 @@
 #include "OSIIA1_threads.h"
 #include "jobs.h"
 
+#undef DEBUG
+
 void push_new_job_instance(struct Job* j)
 {
     if (!j)
@@ -14,7 +16,7 @@ void push_new_job_instance(struct Job* j)
         printf("could not allocate memory for a new job instance\n");
         return;
     }
-    
+
     ji->job_id = NUMBER_OF_JOBS++;
     
     ji->j = calloc(1,sizeof(struct Job));
@@ -31,5 +33,9 @@ void push_new_job_instance(struct Job* j)
     {
         ji->j->e_msg = strdup(j->e_msg);
     }
+
+#if defined(DEBUG)
+    printf("We reached here\n");
+#endif // DEBUG
     IN_BUCKET->ji[IN_BUCKET->ji_accummulation++] = ji;
 }
