@@ -4,7 +4,6 @@ This is an assignment to BCT-222 Y1 S2 students given in [Multimedia University 
 
 > [Make a program in your desired language illustrating shotest job first preemptive. Work in groups](./docs/pdf/Group%20Assignment.pdf)
 
-
 ## The implementation plan
 
 We are going to use the C programming language.
@@ -13,7 +12,8 @@ We are going to use the `time.h` library to track time.
 We are going to quatify time in seconds.
 We are going to use user input as our set.
 We are going to represent user input in the format below.
-```
+
+```sql
 $ > 9  "Execution of write file syscall"  0
     ^          ^                          ^
     |          |                          |
@@ -21,6 +21,7 @@ $ > 9  "Execution of write file syscall"  0
     |          This is what to print after a job has been executed
     This is the burst time if the job in seconds
 ```
+
 We are going to use regex as our regular expression matching algoritm.
 
 The maximmum number of jobs we can have in a specific time will be 255.
@@ -59,8 +60,7 @@ flowchart
     omega([End])
 ```
 
-
-## Proccess illustration 
+## Proccess illustration
 
 ```mermaid
 flowchart 
