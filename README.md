@@ -42,10 +42,8 @@ We will use the GNU readline library to get user input.
 ## REPL
 
 This is how our loop looks like
-<div>
-<video src="./docs/media/video.mkv" alt="REPL demonstration mp4" controls ></video>
-</div>
-<img src="./docs/media/picture.png" alt="REPL demonstration mp4">
+
+![REPL demonstration Image](./docs/media/picture.png)
 
 ## data flow diagram
 
@@ -92,15 +90,15 @@ flowchart
     ProcessBegin([From enough job space left check])
 
     %% Buckets
-    In_Bucket[RAM BUCKET] %% This bcket is for incomming jobs
+    In_Bucket[RAM BUCKET] %% This bucket is for incomming jobs
     Suspended_Bucket[CACHE BUCKET] %% this is for waiting jobs
     register[record job busttime and exit time] %% this is for completed jobs
 
     cpu_exec[execute for  given time quanta] %%This is basically a wait clock but we will call it a cpu for illustration
     
 
-    check_exec{\check if there is a currently executing proccess\}
-    %% @deprecated check_new{ \Check if there is a new process that has arrived\}
+    check_exec{check if there is a currently executing proccess}
+    %% @deprecated check_new{Check if there is a new process that has arrived}
     check_return{ Has the currentJob returned? eg. zero burst time}
     
     get_shortest[Get the shortest]
