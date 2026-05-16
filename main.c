@@ -29,7 +29,7 @@ time_t STARTING_TIME = 0;
 time_t END_TIME_FOR_PREVIOUS_JOB = 0;
 
 struct Bucket *IN_BUCKET = NULL;
-struct Bucket *sus_bucket = NULL;
+struct Bucket *SUS_BUCKET = NULL;
 
 uint16_t NUMBER_OF_JOBS = 1;
 
@@ -46,12 +46,12 @@ int main(int argc, char **argv)
     IN_BUCKET->ji = calloc(MAXIMUM_IN_JI_ACCUMULATION + 1, sizeof(struct job_instance));
 
     /* suspended bucket */
-    sus_bucket = calloc(1, sizeof(struct Bucket));
+    SUS_BUCKET = calloc(1, sizeof(struct Bucket));
 
     /* initalize bucket values */
-    sus_bucket->maximum_ji_accummulation = MAXIMUM_SUS_JI_ACCUMULATION;
-    sus_bucket->ji_accummulation = 0;
-    sus_bucket->ji = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct job_instance));
+    SUS_BUCKET->maximum_ji_accummulation = MAXIMUM_SUS_JI_ACCUMULATION;
+    SUS_BUCKET->ji_accummulation = 0;
+    SUS_BUCKET->ji = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct job_instance));
 
 #if defined(DEBUG)
     printf("We are here\n");
@@ -104,7 +104,7 @@ int main(int argc, char **argv)
     OSIIA1_print_horirontal_line(NULL, " ", 2);
     if (IN_BUCKET)
         free_bucket(IN_BUCKET);
-    if (sus_bucket)
-        free_bucket(sus_bucket);
+    if (SUS_BUCKET)
+        free_bucket(SUS_BUCKET);
     return retval;
 }
