@@ -5,7 +5,7 @@ void get_current_terminal_width(int *rows, int *cols)
 {
 #if defined(__WIN32) /* platform */
 
-    thread_t  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     if (GetConsoleScreenBufferInfo(hConsole,&csbi))
     {
