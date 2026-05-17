@@ -29,8 +29,6 @@ int testing_program(int argc, char **argv);
 char *OSIIA1_strn_to_lower(char *s, size_t l);
 char *OSIIA1_trim_leading_and_trailing_whitespace(char *s);
 
-extern int WINDOW_WIDTH; /* \brief The width of the current terminal */
-extern int WINDOW_HEIGHT;/* \brief The height of the current terminal */
 
 extern volatile int PROGRAM_IS_RUNNING; /* set to 0 so as to stop the pro */
 
