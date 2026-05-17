@@ -14,7 +14,7 @@ extern WINDOW *GRANTT_CHART_DISPLAY_WIN;
 void OSIIA1_play_boot_sequence(); /* animation for the dummy vm */
 
 void OSIIA1_play_boot_sequence_log(WINDOW **w, int curr_cyc, const char *logs[], int n_logs); /* display logs akin to grub2 boot */
-void OSIIA1_play_boot_sequence_loader(WINDOW** w, int curr_cyc); /* show a loading bar through time */
+void OSIIA1_play_boot_sequence_loader(WINDOW** w, int curr_cyc,int total_cyc); /* show a loading bar through time */
 void OSIIA1_play_boot_sequence_blink(WINDOW** w, int curr_cyc,const char* str); /* blink at intervals during the booting animation */
 
 void get_current_terminal_dimensions();
