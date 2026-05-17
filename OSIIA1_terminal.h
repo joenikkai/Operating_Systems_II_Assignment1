@@ -12,6 +12,5 @@ extern WINDOW *HANDLE_USER_INPUT_WIN;
 extern WINDOW *GRANTT_CHART_DISPLAY_WIN;
 
 void get_current_terminal_dimensions();
-void OSIIA1_print_horirontal_line(int *len, char *c, int n);
 
 #endif // OSIIA1_TERMINAL_H
