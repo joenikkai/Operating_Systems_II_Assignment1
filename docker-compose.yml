@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  scheduler:
+    build: .
+    image: srtf_scheduler
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - .:/usr/src/app

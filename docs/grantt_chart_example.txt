@@ -1,0 +1,20 @@
+If order of processes is as shown below:
+
++--------------+--------------+--------------+----------------------+
+| Process ID   | Arrival Time | Burst Time   | Exit Message         |
++--------------+--------------+--------------+----------------------+
+| P1           | 3            | 1            | Process P1 completed |
+| P2           | 1            | 4            | Process P2 completed |
+| P3           | 4            | 2            | Process P3 completed |
+| P4           | 0            | 6            | Process P4 completed |
+| P5           | 2            | 3            | Process P5 completed |
+| P6           | 5            | 5            | Process P6 completed |
+| P7           | 6            | 1            | Process P7 completed |
++--------------+--------------+--------------+----------------------+
+The Gantt chart for the above processes will look like this:
+
++----+----+----+----+----+----+----+----+----+----+----+
+| R5 | R3 | R2 | R0 | R1 | R0 | R0 | R0 | R0 | R0 | R0 |
+| P4 | P2 | P2 | P1 | P2 | P2 | P7 | P3 | P5 | P4 | P6 |
+|----|----|----|----|----|----|----|----|----|----|----|
+0    1    2    3    4    5    6    7    9    12   17   22
