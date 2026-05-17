@@ -1,4 +1,5 @@
 #include "OSIIA1_pattern.h"
+#include <string.h>
 
 struct extracted_strings *test_extracted_data_from_string() /* \brief compress this into loops using dry */
 {

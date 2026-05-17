@@ -1,4 +1,5 @@
 #include "main.h"
+#include <ctype.h>
 
 char *OSIIA1_strn_to_lower(char *s, size_t l)
 {

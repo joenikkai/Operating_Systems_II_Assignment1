@@ -44,6 +44,11 @@ struct job_instance_record {
     time_t burst_time;
 };
 
+extern struct Bucket *IN_BUCKET; /* outgoing processes */
+extern struct Bucket *SUS_BUCKET; /* suspended but not finished processes */
+
+extern struct job_instance_record **RECORDS;
+
 extern WINDOW *CPU_EXEC_LOG_WIN;
 extern WINDOW *HANDLE_USER_INPUT_WIN;
 extern WINDOW *GRANTT_CHART_DISPLAY_WIN;

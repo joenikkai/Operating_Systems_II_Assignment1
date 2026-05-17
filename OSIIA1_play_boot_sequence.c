@@ -1,6 +1,7 @@
 #include "main.h"
 #include "OSIIA1_terminal.h"
 #include "timer.h"
+#include <string.h>
 
 void OSIIA1_play_boot_sequence()
 {

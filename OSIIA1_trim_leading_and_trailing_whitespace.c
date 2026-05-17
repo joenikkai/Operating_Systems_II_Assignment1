@@ -1,4 +1,6 @@
 #include "main.h"
+#include <string.h>
+#include <ctype.h>
 
 char *OSIIA1_trim_leading_and_trailing_whitespace(char *s)
 {

@@ -1,6 +1,7 @@
 #include "OSIIA1_threads.h"
 #include "jobs.h"
 #include "OSIIA1_terminal.h"
+#include <string.h>
 #undef DEBUG
 
 void push_new_job_instance(struct Job* j)

@@ -1,4 +1,5 @@
 #include "jobs.h"
+#include <time.h>
 #include "input.h"
 
 struct Job *get_new_job(struct extracted_strings* es) /* makes a new `struct Job` and assigns the the submatches of extracted strings while ignoring the full match */
