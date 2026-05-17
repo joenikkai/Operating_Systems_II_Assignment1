@@ -1,6 +1,6 @@
 #include "OSIIA1_threads.h"
 #include "jobs.h"
-
+#include "OSIIA1_terminal.h"
 #undef DEBUG
 
 void push_new_job_instance(struct Job* j)
@@ -13,7 +13,7 @@ void push_new_job_instance(struct Job* j)
     struct job_instance* ji = calloc(1,sizeof(struct job_instance));
     if (!ji)
     {
-        printf("could not allocate memory for a new job instance\n");
+        wprintw(HANDLE_USER_INPUT_WIN ,"WARN: could not allocate memory for a new job instance\n");
         return;
     }
 
@@ -27,15 +27,12 @@ void push_new_job_instance(struct Job* j)
 
     if (!j->e_msg)
     {
-        ji->j->e_msg = strdup("Custom Message [ No String Was Provided ].\n");
+        ji->j->e_msg = strdup("INFO: Custom Message [ No String Was Provided ].\n");
     }   
     else 
     {
         ji->j->e_msg = strdup(j->e_msg);
     }
 
-#if defined(DEBUG)
-    printf("We reached here\n");
-#endif // DEBUG
     IN_BUCKET->ji[IN_BUCKET->ji_accummulation++] = ji;
 }
