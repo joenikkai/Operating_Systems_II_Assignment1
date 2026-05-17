@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-struct extracted_strings *extract_data_from_string(char *s) /* \deprecated if no tests are written \attention extracts all regex groups and stores them in a struct containing the number of strings, the length of each string and the data of each string \brief includes the whole match.*/
+struct extracted_strings *extract_data_from_string(char *s) /* extracts all regex groups and stores them in a struct containing the number of strings, the length of each string and the data of each string. includes the whole match.*/
 {
     /* check for regex match */
     regmatch_t matches[_OSIIA1_PATTERN_GROUPS];
