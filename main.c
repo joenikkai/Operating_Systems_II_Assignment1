@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     }
     get_current_terminal_dimensions();
     OSIIA1_play_boot_sequence();
-    return 0;
+
     if (!WINDOW_HEIGHT)
     {
         printf("Could not assign window height value.\n");
@@ -89,7 +89,6 @@ int main(int argc, char **argv)
     wrefresh(CPU_EXEC_LOG_WIN);
     wrefresh(GRANTT_CHART_DISPLAY_WIN);
     
-    getch();
 
     
     /* --- functionality --- */
@@ -135,19 +134,20 @@ int main(int argc, char **argv)
 
     /* the write history must exists */
     write_history(HISTORY_FILE);
-    OSIIA1_print_horirontal_line(NULL, " ", 1);
-    OSIIA1_print_horirontal_line(NULL, "-", 1);
+    // OSIIA1_print_horirontal_line(NULL, " ", 1);
+    // OSIIA1_print_horirontal_line(NULL, "-", 1);
     printf("This program ran for %zu seconds.\n", time(NULL) - STARTING_TIME);
-    OSIIA1_print_horirontal_line(NULL, "~", 1);
-    OSIIA1_print_horirontal_line(NULL, " ", 1);
+    // OSIIA1_print_horirontal_line(NULL, "~", 1);
+    // OSIIA1_print_horirontal_line(NULL, " ", 1);
     printf("Goodbye. Hope well see you next time.\n");
-    OSIIA1_print_horirontal_line(NULL, " ", 2);
+    // OSIIA1_print_horirontal_line(NULL, " ", 2);
     if (IN_BUCKET)
         free_bucket(IN_BUCKET);
     /* --- */
     if (SUS_BUCKET)
         free_bucket(SUS_BUCKET);
     /* --- */
+    
     delwin(HANDLE_USER_INPUT_WIN);
     delwin(CPU_EXEC_LOG_WIN);
     delwin(GRANTT_CHART_DISPLAY_WIN);
