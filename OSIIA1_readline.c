@@ -74,6 +74,14 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
         {
             if (pos < len) pos++;
         }
+        else if (ch == KEY_HOME)
+        {
+            pos = 0;
+        }
+        else if (ch == KEY_END)
+        {
+            pos = len;
+        }
         else if (ch == KEY_UP)
         {
             if (history_count > 0)
