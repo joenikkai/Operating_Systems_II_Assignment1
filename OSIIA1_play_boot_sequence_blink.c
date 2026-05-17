@@ -11,8 +11,13 @@ void OSIIA1_play_boot_sequence_blink(WINDOW **w, int curr_cyc,const char* str)
     int len = strlen(str);
     if (len >= inner_width)
         len = inner_width;
-    if (curr_cyc%2==0)
-        mvwprintw(*w, 1,1,"%.*s",len,str);
-    box(*w,0,0);
+    if (curr_cyc % 2 == 0)
+        mvwprintw(*w, 1, 1, "%.*s", len, str);
+    else
+    {
+        for (int i = 0; i < len; i++)
+            mvwaddch(*w, 1, 1 + i, ' ');
+    }
+    box(*w, 0, 0);
     wrefresh(*w);
 }
