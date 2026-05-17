@@ -8,7 +8,7 @@ void OSIIA1_play_boot_sequence()
 
     const char *bs[] = BOOTING_SEQUENCE;
     int cyc_t = 333333; /* cycle time */
-    int nbs = (sizeof(bs) / sizeof(bs[0]));
+    int nbs = (sizeof(bs) / sizeof(bs[0])); /* number of cycles */
     int boot_time = nbs*cyc_t;
 
     WINDOW *b_logger_d_w = newwin(WINDOW_HEIGHT - 3,WINDOW_WIDTH,0,0); /* boot log display window */
@@ -41,7 +41,7 @@ void OSIIA1_play_boot_sequence()
 
         OSIIA1_millisecond_sleep(cyc_t);
         OSIIA1_play_boot_sequence_log(&b_logger_d_w,cyc,bs,nbs);
-        OSIIA1_play_boot_sequence_loader(&b_loading_bar_d_w,cyc);
+        OSIIA1_play_boot_sequence_loader(&b_loading_bar_d_w,cyc,nbs);
         OSIIA1_play_boot_sequence_blink(&b_blinker_d_w,cyc,b);
     }
 
