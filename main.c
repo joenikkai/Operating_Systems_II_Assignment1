@@ -191,6 +191,7 @@ int main(int argc, char **argv)
     if (SUS_BUCKET)
         free_bucket(SUS_BUCKET);
     /* --- */
+    free_records();
     
     delwin(HANDLE_USER_INPUT_WIN);
     delwin(CPU_EXEC_LOG_WIN);

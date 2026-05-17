@@ -17,6 +17,12 @@ static void record_execution(struct job_instance *ji)
         {
             last->duration++;
             last->burst_time = ji->j->burst;
+            if (ji->j->burst == 0)
+            {
+                long sim_time = 0;
+                for(int i=0; i<RECORDS_COUNT-1; i++) sim_time += RECORDS[i]->duration;
+                last->finish_time = sim_time + last->duration;
+            }
             return;
         }
     }
@@ -24,7 +30,19 @@ static void record_execution(struct job_instance *ji)
     struct job_instance_record *rec = calloc(1, sizeof(struct job_instance_record));
     rec->job_id = ji->job_id;
     rec->burst_time = ji->j->burst;
+    rec->arrival_time = ji->j->arrival_time - STARTING_TIME;
+    rec->original_burst = ji->j->original_burst;
+    rec->exit_code = ji->j->e_code;
     rec->duration = 1;
+    
+    // We'll calculate finish time in the query command by summing durations
+    // or we can store the current simulation time here.
+    // Let's use the current RECORDS sum as a proxy for simulation time.
+    long sim_time = 0;
+    for(int i=0; i<RECORDS_COUNT; i++) sim_time += RECORDS[i]->duration;
+    
+    if (ji->j->burst == 0)
+        rec->finish_time = sim_time + 1;
 
     // String sharing logic
     rec->message = NULL;
@@ -52,19 +70,37 @@ static void free_record(int index)
 
     uint16_t id = RECORDS[index]->job_id;
     int count = 0;
-    for (int i = 0; i < RECORDS_COUNT; i++)
+    // We only free the message if this is the LAST record with this job_id in the array
+    for (int i = index + 1; i < RECORDS_COUNT; i++)
     {
         if (RECORDS[i] && RECORDS[i]->job_id == id)
+        {
             count++;
+            break;
+        }
     }
 
-    if (count == 1) // Unique/Last one
+    if (count == 0) // This is the last one
     {
         free(RECORDS[index]->message);
     }
 
     free(RECORDS[index]);
     RECORDS[index] = NULL;
+}
+
+void free_records()
+{
+    if (!RECORDS) return;
+    pthread_mutex_lock(&BUCKET_MUTEX);
+    for (int i = 0; i < RECORDS_COUNT; i++)
+    {
+        free_record(i);
+    }
+    free(RECORDS);
+    RECORDS = NULL;
+    RECORDS_COUNT = 0;
+    pthread_mutex_unlock(&BUCKET_MUTEX);
 }
 
 void *execute_job_instance(void *arg)

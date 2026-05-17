@@ -41,8 +41,12 @@ struct Bucket
 struct job_instance_record {
     uint16_t job_id;
     char *message;
-    time_t burst_time;
+    time_t arrival_time;
+    time_t burst_time; // Remaining burst
+    time_t original_burst;
+    time_t finish_time;
     time_t duration;
+    uint8_t exit_code;
 };
 
 extern struct Bucket *IN_BUCKET; /* outgoing processes */
@@ -73,6 +77,10 @@ void *handle_user_input(void *arg); /* will contain everything that the main pro
 struct job_instance *extract_job_instance(struct job_instance *ji);
 struct job_instance *load_job_instance(struct job_instance *ji);
 void *execute_job_instance(void *arg); /* should not pass in anything is should find a loaded register */
+
+void generate_gantt_svg(const char *filename);
+void generate_process_table_svg(const char *filename);
+void free_records();
 
 /**
  * Add ways to 
