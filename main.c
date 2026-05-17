@@ -45,7 +45,7 @@ int main(int argc, char **argv)
         perror("initscr");
         return 1;
     }
-    get_current_terminal_width(&WINDOW_HEIGHT, &WINDOW_WIDTH);
+    get_current_terminal_dimensions();
     if (!WINDOW_HEIGHT)
     {
         printf("Could not assign window height value.\n");
