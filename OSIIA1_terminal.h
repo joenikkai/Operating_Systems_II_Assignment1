@@ -11,6 +11,6 @@ extern volatile int WINDOW_HEIGHT; /* \brief The height of the current terminal 
 
 extern WINDOW *CPU_EXEC_LOG_WIN;
 extern WINDOW *HANDLE_USER_INPUT_WIN;
-extern WINDOW *GRANTT_CHART_DISPLAY;
+extern WINDOW *GRANTT_CHART_DISPLAY_WIN;
 
 #endif // OSIIA1_TERMINAL_H

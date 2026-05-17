@@ -33,6 +33,10 @@ struct Bucket *SUS_BUCKET = NULL;
 
 volatile uint16_t NUMBER_OF_JOBS = 1;
 
+WINDOW *CPU_EXEC_LOG_WIN = NULL;
+WINDOW *HANDLE_USER_INPUT_WIN = NULL;
+WINDOW *GRANTT_CHART_DISPLAY_WIN = NULL;
+
 int main(int argc, char **argv)
 {
     STARTING_TIME = time(NULL);
