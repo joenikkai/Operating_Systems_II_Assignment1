@@ -26,8 +26,8 @@ void *handle_user_input(void* args)
 
         if (strcmp(lower, "clear") == 0)
         {
-            wclear(HANDLE_USER_INPUT_WIN);
-            wrefresh(HANDLE_USER_INPUT_WIN);
+            wclear(HANDLE_USER_INPUT_INNER_WIN);
+            wrefresh(HANDLE_USER_INPUT_INNER_WIN);
             free(lower);
             free(input);
             continue;
@@ -44,8 +44,8 @@ void *handle_user_input(void* args)
         struct extracted_strings *es = extract_data_from_string(trimmed);
         if (!es)
         {
-            wprintw(HANDLE_USER_INPUT_WIN, "command `%s' not found.\n", trimmed);
-            wrefresh(HANDLE_USER_INPUT_WIN);
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "command `%s' not found.\n", trimmed);
+            wrefresh(HANDLE_USER_INPUT_INNER_WIN);
             free(input);
             continue;
         }
@@ -54,14 +54,14 @@ void *handle_user_input(void* args)
         struct Job *new_job = get_new_job(es);
         if (!new_job)
         {
-            wprintw(HANDLE_USER_INPUT_WIN, "could not make a new job\n");
-            wrefresh(HANDLE_USER_INPUT_WIN);
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "could not make a new job\n");
+            wrefresh(HANDLE_USER_INPUT_INNER_WIN);
             free_extracted_strings(es);
             free(input);
             continue;
         }
     #if defined(DEBUG)
-        wprintw(HANDLE_USER_INPUT_WIN,"arrival time: %zu | burst time: %hhu | exit message: %s | exit code: %hhu\n", new_job->arrival_time, new_job->burst, new_job->e_msg, new_job->e_code);
+        wprintw(HANDLE_USER_INPUT_INNER_WIN,"arrival time: %zu | burst time: %hhu | exit message: %s | exit code: %hhu\n", new_job->arrival_time, new_job->burst, new_job->e_msg, new_job->e_code);
     #endif // DEBUG
 
         pthread_mutex_lock(&BUCKET_MUTEX);
@@ -69,13 +69,15 @@ void *handle_user_input(void* args)
         {
             push_new_job_instance(new_job);
     #if defined(DEBUG)
-            wprintw(HANDLE_USER_INPUT_WIN,"After pushing the new instance\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN,"After pushing the new instance\n");
     #endif // DEBUG
-            wprintw(HANDLE_USER_INPUT_WIN,"appended job  [ job id: %hx ]\n",IN_BUCKET->ji[IN_BUCKET->ji_accummulation-1]->job_id);
+            wprintw(HANDLE_USER_INPUT_INNER_WIN,"appended job  [ job id: %hx ]\n",IN_BUCKET->ji[IN_BUCKET->ji_accummulation-1]->job_id);
+            wrefresh(HANDLE_USER_INPUT_INNER_WIN);
         }
         else
         {
-            wprintw(HANDLE_USER_INPUT_WIN,"maximum number of jobs at a time is reached wait for the program to complete execution\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN,"maximum number of jobs at a time is reached wait for the program to complete execution\n");
+            wrefresh(HANDLE_USER_INPUT_INNER_WIN);
         }
         pthread_mutex_unlock(&BUCKET_MUTEX);
 

@@ -57,7 +57,7 @@ static void free_record(int index)
 void *execute_job_instance(void *arg)
 {
     int line = 0;
-    int inner_height = (getmaxy(CPU_EXEC_LOG_WIN) - 2);
+    int inner_height = getmaxy(CPU_EXEC_LOG_INNER_WIN);
 
     while (PROGRAM_IS_RUNNING)
     {
@@ -130,20 +130,20 @@ void *execute_job_instance(void *arg)
 
             CURRENT_JOB->j->burst--;
 
-            if (line >= inner_height - 1)
+            if (line >= inner_height - 3)
             {
-                werase(CPU_EXEC_LOG_WIN);
-                box(CPU_EXEC_LOG_WIN, 0, 0);
+                wclear(CPU_EXEC_LOG_INNER_WIN);
                 line = 0;
             }
-            mvwprintw(CPU_EXEC_LOG_WIN, ++line, 1, "executing job [ id: %hx ] | remaining: %hhu", CURRENT_JOB->job_id, CURRENT_JOB->j->burst);
-            wrefresh(CPU_EXEC_LOG_WIN);
+            mvwprintw(CPU_EXEC_LOG_INNER_WIN, ++line, 1, "CPU Executing [ ID: %hx ]", CURRENT_JOB->job_id);
+            mvwprintw(CPU_EXEC_LOG_INNER_WIN, ++line, 1, "  Message: %s", CURRENT_JOB->j->e_msg);
+            mvwprintw(CPU_EXEC_LOG_INNER_WIN, ++line, 1, "  Burst Remaining: %hhu s", CURRENT_JOB->j->burst);
+            wrefresh(CPU_EXEC_LOG_INNER_WIN);
 
             if (CURRENT_JOB->j->burst == 0)
             {
-                mvwprintw(CPU_EXEC_LOG_WIN, ++line, 1, "executed job [ job id: %hx ]", CURRENT_JOB->job_id);
-                mvwprintw(CPU_EXEC_LOG_WIN, ++line, 1, "msg: %s | code: %hhu", CURRENT_JOB->j->e_msg, CURRENT_JOB->j->e_code);
-                wrefresh(CPU_EXEC_LOG_WIN);
+                mvwprintw(CPU_EXEC_LOG_INNER_WIN, ++line, 1, ">> Job %hx Finished (Code: %hhu)", CURRENT_JOB->job_id, CURRENT_JOB->j->e_code);
+                wrefresh(CPU_EXEC_LOG_INNER_WIN);
                 
                 free_job_instance(CURRENT_JOB);
                 CURRENT_JOB = NULL;
@@ -152,10 +152,9 @@ void *execute_job_instance(void *arg)
         else
         {
             pthread_mutex_unlock(&BUCKET_MUTEX);
-            werase(CPU_EXEC_LOG_WIN);
-            box(CPU_EXEC_LOG_WIN, 0, 0);
-            mvwprintw(CPU_EXEC_LOG_WIN, 1, 1, "CPU STATUS: IDLE");
-            wrefresh(CPU_EXEC_LOG_WIN);
+            wclear(CPU_EXEC_LOG_INNER_WIN);
+            mvwprintw(CPU_EXEC_LOG_INNER_WIN, 1, 1, "CPU STATUS: IDLE");
+            wrefresh(CPU_EXEC_LOG_INNER_WIN);
             line = 1;
             OSIIA1_sleep(TIME_QUANTA); // Idle
             continue;

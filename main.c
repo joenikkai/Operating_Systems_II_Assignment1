@@ -42,6 +42,9 @@ WINDOW *CPU_EXEC_LOG_WIN = NULL;
 WINDOW *HANDLE_USER_INPUT_WIN = NULL;
 WINDOW *GRANTT_CHART_DISPLAY_WIN = NULL;
 
+WINDOW *HANDLE_USER_INPUT_INNER_WIN = NULL;
+WINDOW *CPU_EXEC_LOG_INNER_WIN = NULL;
+
 char **HISTORY_COMMANDS = NULL;
 
 int main(int argc, char **argv)
@@ -94,13 +97,23 @@ int main(int argc, char **argv)
     box(HANDLE_USER_INPUT_WIN, 0, 0);
     box(CPU_EXEC_LOG_WIN, 0, 0);
     box(GRANTT_CHART_DISPLAY_WIN, 0, 0);
+
+    // Create inner windows for content
+    int h, w;
+    getmaxyx(HANDLE_USER_INPUT_WIN, h, w);
+    HANDLE_USER_INPUT_INNER_WIN = derwin(HANDLE_USER_INPUT_WIN, h - 2, w - 2, 1, 1);
     
-    scrollok(HANDLE_USER_INPUT_WIN, TRUE);
-    scrollok(CPU_EXEC_LOG_WIN, TRUE);
+    getmaxyx(CPU_EXEC_LOG_WIN, h, w);
+    CPU_EXEC_LOG_INNER_WIN = derwin(CPU_EXEC_LOG_WIN, h - 2, w - 2, 1, 1);
+
+    scrollok(HANDLE_USER_INPUT_INNER_WIN, TRUE);
+    scrollok(CPU_EXEC_LOG_INNER_WIN, TRUE);
     
     wrefresh(HANDLE_USER_INPUT_WIN);
     wrefresh(CPU_EXEC_LOG_WIN);
     wrefresh(GRANTT_CHART_DISPLAY_WIN);
+    wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+    wrefresh(CPU_EXEC_LOG_INNER_WIN);
     
 
     
