@@ -13,22 +13,23 @@ void OSIIA1_play_boot_sequence_loader(WINDOW **w, int curr_cyc, int total_cyc)
     if (fill_len > inner_width)
         fill_len = inner_width - 2;
 
-    mvwaddch(*w, 1, 1, '[');
     for (int col = 0; col <= fill_len; col++)
     {
+        char ch = ' ';
         if (col < fill_len)
         {
-            mvwaddch(*w, 1, 1 + col, '=');
+            ch = '=';
         }
         if (col == fill_len)
         {
-            mvwaddch(*w, 1, 1 + col, '>');
+            ch = '>';
         }
         else
-        {
-            mvwaddch(*w, 1, 1 + col, ' ');
-        }
+        mvwaddch(*w, 1, 1 + col, ch);
+
     }
+
+    mvwaddch(*w, 1, 1, '[');
     mvwaddch(*w, 1, 1 + fill_len, ']');
     box(*w, 0, 0);
     wrefresh(*w);
