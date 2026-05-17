@@ -1,4 +1,6 @@
 #include "OSIIA1_terminal.h"
+#include <ncurses/ncurses.h>
+#include <string.h>
 
 void OSIIA1_play_boot_sequence_blink(WINDOW **w, int curr_cyc,const char* str)
 {
@@ -6,6 +8,11 @@ void OSIIA1_play_boot_sequence_blink(WINDOW **w, int curr_cyc,const char* str)
     getmaxyx(*w, height, width);
     inner_height = height - 2;
     inner_width = width - 2;
+    int len = strlen(str);
+    if (len >= inner_width)
+        len = inner_width;
+    if (curr_cyc%2==0)
+        mvwprintw(*w, 1,1,"%.*s",len,str);
     box(*w,0,0);
     wrefresh(*w);
 }
