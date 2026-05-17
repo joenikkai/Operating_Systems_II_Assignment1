@@ -28,16 +28,25 @@ The maximmum number of jobs we can have in a specific time will be 255.
 The maximum burst time is going to be 4 minutes 15 seconds.
 We will use `uint8_t` from `stdint.h` a one byte integer.
 
-our job structure will be.
+### Commands
 
-```c
-struct Job {
-    uint8_t burst;
-    uint8_t e_code;
-    char* e_msg;
-};
-```
+- `burst "message" exit_code`: Add a new process to the scheduler.
+- `ls [in|sus|done]`: List incoming, suspended, or completed processes.
+- `query`: Generate `gantt_chart.svg` and `process_table.svg` and display performance metrics.
+- `help`: Display the available commands list.
+- `clear`: Clear the input window.
+- `exit`: Exit the program.
 
+### Reports
+
+The `query` command generates two SVG files:
+1. `gantt_chart.svg`: A visual representation of the SRTF scheduling with proportional block widths.
+2. `process_table.svg`: A detailed table containing Process IDs, Arrival Times, Burst Times, Exit Times, Turnaround Times (TAT), Waiting Times (WT), and Exit Messages.
+
+## Docker Setup
+
+This project is fully dockerized for cross-platform compatibility (Windows, Linux, macOS).
+Refer to [README_DOCKER.md](./README_DOCKER.md) for instructions.
 
 ## REPL
 

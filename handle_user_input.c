@@ -36,6 +36,23 @@ void *handle_user_input(void* args)
             continue;
         }
 
+        if (strcmp(lower, "help") == 0)
+        {
+            pthread_mutex_lock(&TERMINAL_MUTEX);
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "Available Commands:\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "  burst \"msg\" code : Add a new process\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "  ls [in|sus|done] : List processes\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "  query            : Generate SVG reports\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "  clear            : Clear input window\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "  help             : Show this help\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "  exit             : Exit program\n");
+            wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
+            free(lower);
+            free(input);
+            continue;
+        }
+
         if (strcmp(lower, "query") == 0)
         {
             pthread_mutex_lock(&BUCKET_MUTEX);

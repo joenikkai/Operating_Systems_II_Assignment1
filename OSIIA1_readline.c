@@ -66,6 +66,14 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
                 len--;
             }
         }
+        else if (ch == KEY_DC)
+        {
+            if (pos < len)
+            {
+                memmove(&buffer[pos], &buffer[pos + 1], len - pos);
+                len--;
+            }
+        }
         else if (ch == KEY_LEFT)
         {
             if (pos > 0) pos--;
