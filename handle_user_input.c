@@ -41,6 +41,7 @@ void *handle_user_input(void* args)
         wprintw(HANDLE_USER_INPUT_WIN,"arrival time: %zu | burst time: %hhu | exit message: %s | exit code: %hhu\n", new_job->arrival_time, new_job->burst, new_job->e_msg, new_job->e_code);
     #endif // DEBUG
 
+        pthread_mutex_lock(&BUCKET_MUTEX);
         if (IN_BUCKET->ji_accummulation <= MAXIMUM_IN_JI_ACCUMULATION)
         {
             push_new_job_instance(new_job);
@@ -53,6 +54,7 @@ void *handle_user_input(void* args)
         {
             wprintw(HANDLE_USER_INPUT_WIN,"maximum number of jobs at a time is reached wait for the program to complete execution\n");
         }
+        pthread_mutex_unlock(&BUCKET_MUTEX);
 
         free_job(new_job);
         free_extracted_strings(es);
