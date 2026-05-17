@@ -42,6 +42,7 @@ struct job_instance_record {
     uint16_t job_id;
     char *message;
     time_t burst_time;
+    time_t duration;
 };
 
 extern struct Bucket *IN_BUCKET; /* outgoing processes */

@@ -9,9 +9,22 @@ static void record_execution(struct job_instance *ji)
     if (!ji || RECORDS_COUNT >= MAXIMUM_RECORDS)
         return;
 
+    // Check if we can consolidate with the last record
+    if (RECORDS_COUNT > 0)
+    {
+        struct job_instance_record *last = RECORDS[RECORDS_COUNT - 1];
+        if (last->job_id == ji->job_id)
+        {
+            last->duration++;
+            last->burst_time = ji->j->burst;
+            return;
+        }
+    }
+
     struct job_instance_record *rec = calloc(1, sizeof(struct job_instance_record));
     rec->job_id = ji->job_id;
     rec->burst_time = ji->j->burst;
+    rec->duration = 1;
 
     // String sharing logic
     rec->message = NULL;
@@ -120,15 +133,15 @@ void *execute_job_instance(void *arg)
 
         if (CURRENT_JOB)
         {
-            // Record execution slice
-            record_execution(CURRENT_JOB);
-
             // Execute for 1 cycle
             pthread_mutex_unlock(&BUCKET_MUTEX);
             OSIIA1_sleep(TIME_QUANTA);
             pthread_mutex_lock(&BUCKET_MUTEX);
 
             CURRENT_JOB->j->burst--;
+            
+            // Record execution slice (after decrement)
+            record_execution(CURRENT_JOB);
 
             if (line >= inner_height - 3)
             {

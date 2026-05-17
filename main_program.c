@@ -46,6 +46,14 @@ int main_program(int argc, char **argv)
         int end_idx = RECORDS_COUNT;
 
         int x_offset = 2;
+        long current_time = 0;
+        
+        // Calculate start time for the visible window
+        for (int i = 0; i < start_idx; i++)
+        {
+            if (RECORDS[i]) current_time += RECORDS[i]->duration;
+        }
+
         for (int i = start_idx; i < end_idx; i++)
         {
             if (RECORDS[i])
@@ -56,20 +64,20 @@ int main_program(int argc, char **argv)
                 mvwprintw(GRANTT_CHART_DISPLAY_WIN, 1, x, "+----+");
                 
                 // Remaining Burst (Rx)
-                // If it was 6 and we executed 1s, it now has 5.
-                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 2, x, "| R%-2d|", (int)RECORDS[i]->burst_time - 1);
+                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 2, x, "| R%-2d|", (int)RECORDS[i]->burst_time);
                 
                 // Process ID (Px)
                 mvwprintw(GRANTT_CHART_DISPLAY_WIN, 3, x, "| P%-2d|", (int)RECORDS[i]->job_id);
                 
-                // Bottom border of the block
+                // Bottom border
                 mvwprintw(GRANTT_CHART_DISPLAY_WIN, 4, x, "+----+");
                 
                 // Time markers
-                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 5, x, "%-2d", i);
+                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 5, x, "%-2ld", current_time);
+                current_time += RECORDS[i]->duration;
                 if (i == end_idx - 1)
                 {
-                    mvwprintw(GRANTT_CHART_DISPLAY_WIN, 5, x + block_width, "%-2d", i + 1);
+                    mvwprintw(GRANTT_CHART_DISPLAY_WIN, 5, x + block_width, "%-2ld", current_time);
                 }
             }
         }
