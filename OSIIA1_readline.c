@@ -51,12 +51,13 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
                 else if (history_idx > 0)
                     history_idx--;
 
-                // Clear current line
-                mvwprintw(w, start_y, start_x, "%*s", pos, "");
+                // Move to start of input and clear to end of line
+                wmove(w, start_y, start_x);
+                wclrtoeol(w);
                 
                 strcpy(buffer, HISTORY_COMMANDS[history_idx]);
                 pos = strlen(buffer);
-                mvwprintw(w, start_y, start_x, "%s", buffer);
+                wprintw(w, "%s", buffer);
             }
         }
         else if (ch == KEY_DOWN)
@@ -66,18 +67,19 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
                 if (history_idx < history_count - 1)
                 {
                     history_idx++;
-                    mvwprintw(w, start_y, start_x, "%*s", pos, "");
+                    wmove(w, start_y, start_x);
+                    wclrtoeol(w);
                     strcpy(buffer, HISTORY_COMMANDS[history_idx]);
                     pos = strlen(buffer);
-                    mvwprintw(w, start_y, start_x, "%s", buffer);
+                    wprintw(w, "%s", buffer);
                 }
                 else
                 {
                     history_idx = -1;
-                    mvwprintw(w, start_y, start_x, "%*s", pos, "");
+                    wmove(w, start_y, start_x);
+                    wclrtoeol(w);
                     buffer[0] = '\0';
                     pos = 0;
-                    wmove(w, start_y, start_x);
                 }
             }
         }

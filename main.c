@@ -92,6 +92,10 @@ int main(int argc, char **argv)
     box(HANDLE_USER_INPUT_WIN, 0, 0);
     box(CPU_EXEC_LOG_WIN, 0, 0);
     box(GRANTT_CHART_DISPLAY_WIN, 0, 0);
+    
+    scrollok(HANDLE_USER_INPUT_WIN, TRUE);
+    scrollok(CPU_EXEC_LOG_WIN, TRUE);
+    
     wrefresh(HANDLE_USER_INPUT_WIN);
     wrefresh(CPU_EXEC_LOG_WIN);
     wrefresh(GRANTT_CHART_DISPLAY_WIN);
