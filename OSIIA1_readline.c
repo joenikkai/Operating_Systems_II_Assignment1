@@ -2,6 +2,28 @@
 #include "OSIIA1_threads.h"
 #include <string.h>
 
+static void redraw_line(WINDOW *w, int start_y, int start_x, char *buffer, int pos)
+{
+    wmove(w, start_y, start_x);
+    wclrtoeol(w);
+    int len = strlen(buffer);
+    for (int i = 0; i <= len; i++)
+    {
+        if (i == pos)
+            wattron(w, A_REVERSE);
+        
+        if (i < len)
+            waddch(w, buffer[i]);
+        else if (i == len)
+            waddch(w, ' '); // Cursor at end
+
+        if (i == pos)
+            wattroff(w, A_REVERSE);
+    }
+    wmove(w, start_y, start_x + pos);
+    wrefresh(w);
+}
+
 char *OSIIA1_readline(WINDOW **win, char *prompt)
 {
     if (!win || !*win)
@@ -10,25 +32,26 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
     WINDOW *w = *win;
     pthread_mutex_lock(&TERMINAL_MUTEX);
     keypad(w, TRUE);
+    curs_set(0); // Use our own highlight cursor
     
     int start_y, start_x;
     wprintw(w, "%s", prompt);
     getyx(w, start_y, start_x);
-    wrefresh(w);
-    pthread_mutex_unlock(&TERMINAL_MUTEX);
-
+    
     char *buffer = calloc(1024, sizeof(char));
     int pos = 0;
+    int len = 0;
+    
+    redraw_line(w, start_y, start_x, buffer, pos);
+    pthread_mutex_unlock(&TERMINAL_MUTEX);
+
     int ch;
     int history_idx = -1;
-
     int history_count = 0;
     if (HISTORY_COMMANDS)
     {
         while (history_count < HISTORY_MAX && HISTORY_COMMANDS[history_count] != NULL)
-        {
             history_count++;
-        }
     }
 
     while ((ch = wgetch(w)) != '\n' && ch != KEY_ENTER && ch != 13)
@@ -38,13 +61,18 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
         {
             if (pos > 0)
             {
+                memmove(&buffer[pos - 1], &buffer[pos], len - pos + 1);
                 pos--;
-                buffer[pos] = '\0';
-                int y, x;
-                getyx(w, y, x);
-                mvwaddch(w, y, x - 1, ' ');
-                wmove(w, y, x - 1);
+                len--;
             }
+        }
+        else if (ch == KEY_LEFT)
+        {
+            if (pos > 0) pos--;
+        }
+        else if (ch == KEY_RIGHT)
+        {
+            if (pos < len) pos++;
         }
         else if (ch == KEY_UP)
         {
@@ -55,13 +83,8 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
                 else if (history_idx > 0)
                     history_idx--;
 
-                // Move to start of input and clear to end of line
-                wmove(w, start_y, start_x);
-                wclrtoeol(w);
-                
                 strcpy(buffer, HISTORY_COMMANDS[history_idx]);
-                pos = strlen(buffer);
-                wprintw(w, "%s", buffer);
+                len = pos = strlen(buffer);
             }
         }
         else if (ch == KEY_DOWN)
@@ -71,37 +94,36 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
                 if (history_idx < history_count - 1)
                 {
                     history_idx++;
-                    wmove(w, start_y, start_x);
-                    wclrtoeol(w);
                     strcpy(buffer, HISTORY_COMMANDS[history_idx]);
-                    pos = strlen(buffer);
-                    wprintw(w, "%s", buffer);
+                    len = pos = strlen(buffer);
                 }
                 else
                 {
                     history_idx = -1;
-                    wmove(w, start_y, start_x);
-                    wclrtoeol(w);
                     buffer[0] = '\0';
-                    pos = 0;
+                    len = pos = 0;
                 }
             }
         }
         else if (ch >= 32 && ch <= 126)
         {
-            if (pos < 1023)
+            if (len < 1023)
             {
+                memmove(&buffer[pos + 1], &buffer[pos], len - pos + 1);
                 buffer[pos++] = ch;
-                buffer[pos] = '\0';
-                waddch(w, ch);
+                len++;
             }
         }
-        wrefresh(w);
+        redraw_line(w, start_y, start_x, buffer, pos);
         pthread_mutex_unlock(&TERMINAL_MUTEX);
     }
+    
     pthread_mutex_lock(&TERMINAL_MUTEX);
-    wprintw(w, "\n");
+    // Clear highlight before finishing
+    wmove(w, start_y, start_x);
+    wprintw(w, "%s\n", buffer);
     wrefresh(w);
     pthread_mutex_unlock(&TERMINAL_MUTEX);
+    
     return buffer;
 }
