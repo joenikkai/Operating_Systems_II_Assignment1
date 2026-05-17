@@ -11,6 +11,7 @@ extern WINDOW *CPU_EXEC_LOG_WIN;
 extern WINDOW *HANDLE_USER_INPUT_WIN;
 extern WINDOW *GRANTT_CHART_DISPLAY_WIN;
 
+void OSIIA1_play_boot_sequence();
 void get_current_terminal_dimensions();
 
 #endif // OSIIA1_TERMINAL_H
