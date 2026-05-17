@@ -38,24 +38,42 @@ int main_program(int argc, char **argv)
 
         int h, w;
         getmaxyx(GRANTT_CHART_DISPLAY_WIN, h, w);
-        int max_visible = w - 4;
-        int start_idx = (RECORDS_COUNT > max_visible) ? RECORDS_COUNT - max_visible : 0;
+        
+        // Each block is 6 characters wide: "+----+", then sharing the right pipe
+        int block_width = 5; 
+        int max_blocks = (w - 4) / block_width;
+        int start_idx = (RECORDS_COUNT > max_blocks) ? RECORDS_COUNT - max_blocks : 0;
+        int end_idx = RECORDS_COUNT;
 
-        for (int i = start_idx; i < RECORDS_COUNT; i++)
+        int x_offset = 2;
+        for (int i = start_idx; i < end_idx; i++)
         {
             if (RECORDS[i])
             {
-                // Each job ID is mapped to a character or just the ID hex
-                mvwaddch(GRANTT_CHART_DISPLAY_WIN, 2, 2 + (i - start_idx), (RECORDS[i]->job_id % 26) + 'A');
-                mvwaddch(GRANTT_CHART_DISPLAY_WIN, 3, 2 + (i - start_idx), '|');
+                int x = x_offset + (i - start_idx) * block_width;
+                
+                // Top border
+                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 1, x, "+----+");
+                
+                // Remaining Burst (Rx)
+                // If it was 6 and we executed 1s, it now has 5.
+                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 2, x, "| R%-2d|", (int)RECORDS[i]->burst_time - 1);
+                
+                // Process ID (Px)
+                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 3, x, "| P%-2d|", (int)RECORDS[i]->job_id);
+                
+                // Bottom border of the block
+                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 4, x, "+----+");
+                
+                // Time markers
+                mvwprintw(GRANTT_CHART_DISPLAY_WIN, 5, x, "%-2d", i);
+                if (i == end_idx - 1)
+                {
+                    mvwprintw(GRANTT_CHART_DISPLAY_WIN, 5, x + block_width, "%-2d", i + 1);
+                }
             }
         }
         
-        if (RECORDS_COUNT > 0)
-        {
-             mvwprintw(GRANTT_CHART_DISPLAY_WIN, 5, 2, "Legend: A=1, B=2... (Job ID %% 26)");
-        }
-
         wrefresh(GRANTT_CHART_DISPLAY_WIN);
         
         pthread_mutex_unlock(&BUCKET_MUTEX);
