@@ -15,11 +15,10 @@ void OSIIA1_play_boot_sequence_log(WINDOW **w, int curr_cyc,const char* logs[],i
 
     int cycles = (curr_cyc<inner_height)?curr_cyc:inner_height;
 
-    box(*w, 0, 0);
-    return;
     for (int cycle = 0; cycle < cycles; cycle++)
     {
         wrefresh(*w);
+        box(*w,0,0);
         if (cycle >= n_logs)
             return;
         size_t len = strlen(logs[cycle]);
