@@ -48,6 +48,20 @@ WINDOW *CPU_EXEC_LOG_INNER_WIN = NULL;
 
 char **HISTORY_COMMANDS = NULL;
 
+static void free_history()
+{
+    if (!HISTORY_COMMANDS)
+        return;
+
+    for (int i = 0; i < HISTORY_MAX; i++)
+    {
+        if (HISTORY_COMMANDS[i])
+            free(HISTORY_COMMANDS[i]);
+    }
+    free(HISTORY_COMMANDS);
+    HISTORY_COMMANDS = NULL;
+}
+
 int main(int argc, char **argv)
 {
 
@@ -146,7 +160,7 @@ int main(int argc, char **argv)
     RECORDS = calloc(MAXIMUM_RECORDS, sizeof(struct job_instance_record *));
     RECORDS_COUNT = 0;
 
-    mvprintw(0,WINDOW_WIDTH/3,"OSIIA1 https://mmu.ac.ke");
+    mvprintw(0, WINDOW_WIDTH / 4, "OSIIA1 v%s - https://mmu.ac.ke", VERSION);
 
     /* allocate memory for history */
     HISTORY_COMMANDS = calloc(HISTORY_MAX, sizeof(char *));
@@ -191,7 +205,11 @@ int main(int argc, char **argv)
     if (SUS_BUCKET)
         free_bucket(SUS_BUCKET);
     /* --- */
+    if (CURRENT_JOB)
+        free_job_instance(CURRENT_JOB);
+    
     free_records();
+    free_history();
     
     delwin(HANDLE_USER_INPUT_WIN);
     delwin(CPU_EXEC_LOG_WIN);

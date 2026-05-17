@@ -1,4 +1,4 @@
-# operaring systems II assignment 1
+# operating systems II assignment 1 - v1.0.0
 
 This is an assignment to BCT-222 Y1 S2 students given in [Multimedia University of Kenya](https://mmu.ac.ke)
 
