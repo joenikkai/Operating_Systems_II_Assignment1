@@ -133,7 +133,7 @@ int main(int argc, char **argv)
 #endif // TEST_THIS_CODE
 
     /* the write history must exists */
-    write_history(HISTORY_FILE);
+    OSIIA1_write_history(HISTORY_FILE);
     // OSIIA1_print_horirontal_line(NULL, " ", 1);
     // OSIIA1_print_horirontal_line(NULL, "-", 1);
     printf("This program ran for %zu seconds.\n", time(NULL) - STARTING_TIME);
