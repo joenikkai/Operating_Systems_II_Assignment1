@@ -61,20 +61,20 @@ int main(int argc, char **argv)
     }
 
     int grant_chart_height = 7;
-    HANDLE_USER_INPUT_WIN = newwin(WINDOW_HEIGHT - grant_chart_height -1, (int)(WINDOW_WIDTH / 2), 1, 0);
+    HANDLE_USER_INPUT_WIN = newwin(WINDOW_HEIGHT - grant_chart_height - 1, (int)(WINDOW_WIDTH / 2), 1, WINDOW_WIDTH - (int)(WINDOW_WIDTH / 2));
     if (!HANDLE_USER_INPUT_WIN)
     {
         perror("newwin");
         return 1;
     }
-    CPU_EXEC_LOG_WIN = newwin(WINDOW_HEIGHT - grant_chart_height - 1, (int)(WINDOW_WIDTH / 2), 1, WINDOW_WIDTH - (int)(WINDOW_WIDTH / 2));
+    CPU_EXEC_LOG_WIN = newwin(WINDOW_HEIGHT - grant_chart_height - 1, (int)(WINDOW_WIDTH / 2), 1, 0);
     if (!CPU_EXEC_LOG_WIN)
     {
         perror("newwin");
         return 1;
     }
     GRANTT_CHART_DISPLAY_WIN = newwin(grant_chart_height, WINDOW_WIDTH, WINDOW_HEIGHT - grant_chart_height, 0);
-    if (!CPU_EXEC_LOG_WIN)
+    if (!GRANTT_CHART_DISPLAY_WIN)
     {
         perror("newwin");
         return 1;
