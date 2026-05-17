@@ -58,6 +58,7 @@ extern WINDOW *CPU_EXEC_LOG_INNER_WIN;
 extern volatile uint16_t RECORDS_COUNT;
 
 extern pthread_mutex_t BUCKET_MUTEX;
+extern pthread_mutex_t TERMINAL_MUTEX;
 
 extern volatile uint16_t NUMBER_OF_JOBS;
 extern volatile uint16_t CPU_IS_EXECUTING;

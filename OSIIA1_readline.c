@@ -1,4 +1,5 @@
 #include "input.h"
+#include "OSIIA1_threads.h"
 #include <string.h>
 
 char *OSIIA1_readline(WINDOW **win, char *prompt)
@@ -7,12 +8,14 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
         return NULL;
 
     WINDOW *w = *win;
+    pthread_mutex_lock(&TERMINAL_MUTEX);
     keypad(w, TRUE);
     
     int start_y, start_x;
     wprintw(w, "%s", prompt);
     getyx(w, start_y, start_x);
     wrefresh(w);
+    pthread_mutex_unlock(&TERMINAL_MUTEX);
 
     char *buffer = calloc(1024, sizeof(char));
     int pos = 0;
@@ -30,6 +33,7 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
 
     while ((ch = wgetch(w)) != '\n' && ch != KEY_ENTER && ch != 13)
     {
+        pthread_mutex_lock(&TERMINAL_MUTEX);
         if (ch == KEY_BACKSPACE || ch == 127 || ch == 8)
         {
             if (pos > 0)
@@ -93,8 +97,11 @@ char *OSIIA1_readline(WINDOW **win, char *prompt)
             }
         }
         wrefresh(w);
+        pthread_mutex_unlock(&TERMINAL_MUTEX);
     }
+    pthread_mutex_lock(&TERMINAL_MUTEX);
     wprintw(w, "\n");
     wrefresh(w);
+    pthread_mutex_unlock(&TERMINAL_MUTEX);
     return buffer;
 }

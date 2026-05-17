@@ -27,8 +27,10 @@ void *handle_user_input(void* args)
 
         if (strcmp(lower, "clear") == 0)
         {
+            pthread_mutex_lock(&TERMINAL_MUTEX);
             wclear(HANDLE_USER_INPUT_INNER_WIN);
             wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
             free(lower);
             free(input);
             continue;
@@ -39,6 +41,7 @@ void *handle_user_input(void* args)
             char *arg = trimmed + 2;
             while (isspace((unsigned char)*arg)) arg++;
 
+            pthread_mutex_lock(&TERMINAL_MUTEX);
             if (strcmp(arg, "in") == 0)
             {
                 pthread_mutex_lock(&BUCKET_MUTEX);
@@ -81,6 +84,7 @@ void *handle_user_input(void* args)
                 wprintw(HANDLE_USER_INPUT_INNER_WIN, "Usage: ls [in|sus|done]\n");
             }
             wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
             free(lower);
             free(input);
             continue;
@@ -97,8 +101,10 @@ void *handle_user_input(void* args)
         struct extracted_strings *es = extract_data_from_string(trimmed);
         if (!es)
         {
+            pthread_mutex_lock(&TERMINAL_MUTEX);
             wprintw(HANDLE_USER_INPUT_INNER_WIN, "command `%s' not found.\n", trimmed);
             wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
             free(input);
             continue;
         }
@@ -107,30 +113,39 @@ void *handle_user_input(void* args)
         struct Job *new_job = get_new_job(es);
         if (!new_job)
         {
+            pthread_mutex_lock(&TERMINAL_MUTEX);
             wprintw(HANDLE_USER_INPUT_INNER_WIN, "could not make a new job\n");
             wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
             free_extracted_strings(es);
             free(input);
             continue;
         }
     #if defined(DEBUG)
+        pthread_mutex_lock(&TERMINAL_MUTEX);
         wprintw(HANDLE_USER_INPUT_INNER_WIN,"arrival time: %zu | burst time: %hhu | exit message: %s | exit code: %hhu\n", new_job->arrival_time, new_job->burst, new_job->e_msg, new_job->e_code);
+        wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+        pthread_mutex_unlock(&TERMINAL_MUTEX);
     #endif // DEBUG
 
         pthread_mutex_lock(&BUCKET_MUTEX);
         if (IN_BUCKET->ji_accummulation <= MAXIMUM_IN_JI_ACCUMULATION)
         {
             push_new_job_instance(new_job);
+            pthread_mutex_lock(&TERMINAL_MUTEX);
     #if defined(DEBUG)
             wprintw(HANDLE_USER_INPUT_INNER_WIN,"After pushing the new instance\n");
     #endif // DEBUG
             wprintw(HANDLE_USER_INPUT_INNER_WIN,"appended job  [ job id: %hx ]\n",IN_BUCKET->ji[IN_BUCKET->ji_accummulation-1]->job_id);
             wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
         }
         else
         {
+            pthread_mutex_lock(&TERMINAL_MUTEX);
             wprintw(HANDLE_USER_INPUT_INNER_WIN,"maximum number of jobs at a time is reached wait for the program to complete execution\n");
             wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
         }
         pthread_mutex_unlock(&BUCKET_MUTEX);
 

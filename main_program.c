@@ -29,11 +29,39 @@ int main_program(int argc, char **argv)
 
     while (PROGRAM_IS_RUNNING)
     {
-        // The threads handle their own window updates
-        // We only need to refresh the boxes if we want them to persist
-        // but constant boxed refreshes will clear the scrolling content.
-        // Let's just sleep to keep the main thread alive.
-        OSIIA1_millisecond_sleep(100);
+        pthread_mutex_lock(&TERMINAL_MUTEX);
+        pthread_mutex_lock(&BUCKET_MUTEX);
+        
+        werase(GRANTT_CHART_DISPLAY_WIN);
+        box(GRANTT_CHART_DISPLAY_WIN, 0, 0);
+        mvwprintw(GRANTT_CHART_DISPLAY_WIN, 0, 2, " GANTT CHART (SRTF) ");
+
+        int h, w;
+        getmaxyx(GRANTT_CHART_DISPLAY_WIN, h, w);
+        int max_visible = w - 4;
+        int start_idx = (RECORDS_COUNT > max_visible) ? RECORDS_COUNT - max_visible : 0;
+
+        for (int i = start_idx; i < RECORDS_COUNT; i++)
+        {
+            if (RECORDS[i])
+            {
+                // Each job ID is mapped to a character or just the ID hex
+                mvwaddch(GRANTT_CHART_DISPLAY_WIN, 2, 2 + (i - start_idx), (RECORDS[i]->job_id % 26) + 'A');
+                mvwaddch(GRANTT_CHART_DISPLAY_WIN, 3, 2 + (i - start_idx), '|');
+            }
+        }
+        
+        if (RECORDS_COUNT > 0)
+        {
+             mvwprintw(GRANTT_CHART_DISPLAY_WIN, 5, 2, "Legend: A=1, B=2... (Job ID %% 26)");
+        }
+
+        wrefresh(GRANTT_CHART_DISPLAY_WIN);
+        
+        pthread_mutex_unlock(&BUCKET_MUTEX);
+        pthread_mutex_unlock(&TERMINAL_MUTEX);
+
+        OSIIA1_millisecond_sleep(500);
     }
     curs_set(1);
 

@@ -35,6 +35,7 @@ struct job_instance_record **RECORDS = NULL;
 volatile uint16_t RECORDS_COUNT = 0;
 
 pthread_mutex_t BUCKET_MUTEX = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t TERMINAL_MUTEX = PTHREAD_MUTEX_INITIALIZER;
 
 volatile uint16_t NUMBER_OF_JOBS = 1;
 
@@ -108,6 +109,11 @@ int main(int argc, char **argv)
 
     scrollok(HANDLE_USER_INPUT_INNER_WIN, TRUE);
     scrollok(CPU_EXEC_LOG_INNER_WIN, TRUE);
+    
+    idlok(HANDLE_USER_INPUT_INNER_WIN, TRUE);
+    idlok(CPU_EXEC_LOG_INNER_WIN, TRUE);
+    
+    leaveok(CPU_EXEC_LOG_INNER_WIN, TRUE);
     
     wrefresh(HANDLE_USER_INPUT_WIN);
     wrefresh(CPU_EXEC_LOG_WIN);

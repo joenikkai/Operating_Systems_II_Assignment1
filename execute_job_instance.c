@@ -132,18 +132,24 @@ void *execute_job_instance(void *arg)
 
             if (line >= inner_height - 3)
             {
-                wclear(CPU_EXEC_LOG_INNER_WIN);
+                pthread_mutex_lock(&TERMINAL_MUTEX);
+                werase(CPU_EXEC_LOG_INNER_WIN);
                 line = 0;
+                pthread_mutex_unlock(&TERMINAL_MUTEX);
             }
+            pthread_mutex_lock(&TERMINAL_MUTEX);
             mvwprintw(CPU_EXEC_LOG_INNER_WIN, ++line, 1, "CPU Executing [ ID: %hx ]", CURRENT_JOB->job_id);
             mvwprintw(CPU_EXEC_LOG_INNER_WIN, ++line, 1, "  Message: %s", CURRENT_JOB->j->e_msg);
             mvwprintw(CPU_EXEC_LOG_INNER_WIN, ++line, 1, "  Burst Remaining: %hhu s", CURRENT_JOB->j->burst);
             wrefresh(CPU_EXEC_LOG_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
 
             if (CURRENT_JOB->j->burst == 0)
             {
+                pthread_mutex_lock(&TERMINAL_MUTEX);
                 mvwprintw(CPU_EXEC_LOG_INNER_WIN, ++line, 1, ">> Job %hx Finished (Code: %hhu)", CURRENT_JOB->job_id, CURRENT_JOB->j->e_code);
                 wrefresh(CPU_EXEC_LOG_INNER_WIN);
+                pthread_mutex_unlock(&TERMINAL_MUTEX);
                 
                 free_job_instance(CURRENT_JOB);
                 CURRENT_JOB = NULL;
@@ -152,9 +158,11 @@ void *execute_job_instance(void *arg)
         else
         {
             pthread_mutex_unlock(&BUCKET_MUTEX);
-            wclear(CPU_EXEC_LOG_INNER_WIN);
+            pthread_mutex_lock(&TERMINAL_MUTEX);
+            werase(CPU_EXEC_LOG_INNER_WIN);
             mvwprintw(CPU_EXEC_LOG_INNER_WIN, 1, 1, "CPU STATUS: IDLE");
             wrefresh(CPU_EXEC_LOG_INNER_WIN);
+            pthread_mutex_unlock(&TERMINAL_MUTEX);
             line = 1;
             OSIIA1_sleep(TIME_QUANTA); // Idle
             continue;
