@@ -39,9 +39,9 @@ void OSIIA1_play_boot_sequence()
     {
 
         OSIIA1_millisecond_sleep(cyc_t);
-        OSIIA1_play_boot_sequence_log(b_logger_d_w,cyc,bs);
-        OSIIA1_play_boot_sequence_loader(b_loading_bar_d_w,cyc);
-        OSIIA1_play_boot_sequence_blink(b_blinker_d_w,cyc);
+        OSIIA1_play_boot_sequence_log(&b_logger_d_w,cyc,bs);
+        OSIIA1_play_boot_sequence_loader(&b_loading_bar_d_w,cyc);
+        OSIIA1_play_boot_sequence_blink(&b_blinker_d_w,cyc);
     }
 
     delwin(b_logger_d_w);
