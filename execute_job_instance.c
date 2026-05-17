@@ -152,6 +152,11 @@ void *execute_job_instance(void *arg)
         else
         {
             pthread_mutex_unlock(&BUCKET_MUTEX);
+            werase(CPU_EXEC_LOG_WIN);
+            box(CPU_EXEC_LOG_WIN, 0, 0);
+            mvwprintw(CPU_EXEC_LOG_WIN, 1, 1, "CPU STATUS: IDLE");
+            wrefresh(CPU_EXEC_LOG_WIN);
+            line = 1;
             OSIIA1_sleep(TIME_QUANTA); // Idle
             continue;
         }
