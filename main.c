@@ -17,8 +17,8 @@ volatile uint16_t CPU_IS_EXECUTING = 0;
 
 struct job_instance *CURRENT_JOB = NULL;
 
-int WINDOW_WIDTH = 0;
-int WINDOW_HEIGHT = 0;
+volatile int WINDOW_WIDTH = 0;
+volatile int WINDOW_HEIGHT = 0;
 
 int RET;
 regex_t REGEX;
@@ -39,6 +39,50 @@ WINDOW *GRANTT_CHART_DISPLAY_WIN = NULL;
 
 int main(int argc, char **argv)
 {
+    /* initialize ncurses */
+    if (!initscr())
+    {
+        perror("initscr");
+        return 1;
+    }
+    get_current_terminal_width(&WINDOW_HEIGHT, &WINDOW_WIDTH);
+    if (!WINDOW_HEIGHT)
+    {
+        printf("Could not assign window height value.\n");
+        return 1;
+    }
+    if (!WINDOW_WIDTH)
+    {
+        printf("Could not assign window width value.\n");
+        return 1;
+    }
+
+    int grant_chart_height = 7;
+    HANDLE_USER_INPUT_WIN = newwin(1, 0, WINDOW_HEIGHT - grant_chart_height, (int )(WINDOW_WIDTH/2));
+    if (!HANDLE_USER_INPUT_WIN)
+    {
+        perror("newwin");
+        return 1;
+    }
+    CPU_EXEC_LOG_WIN = newwin(1, WINDOW_WIDTH - (int)(WINDOW_WIDTH / 2), WINDOW_HEIGHT - grant_chart_height, (int)(WINDOW_WIDTH / 2));
+    if (!CPU_EXEC_LOG_WIN)
+    {
+        perror("newwin");
+        return 1;
+    }
+    GRANTT_CHART_DISPLAY_WIN = newwin(WINDOW_HEIGHT - grant_chart_height, 0, grant_chart_height, WINDOW_WIDTH);
+    if (!CPU_EXEC_LOG_WIN)
+    {
+        perror("newwin");
+        return 1;
+    }
+
+    /* border */
+    box(HANDLE_USER_INPUT_WIN, 0, 0);
+    box(CPU_EXEC_LOG_WIN, 0, 0);
+    box(GRANTT_CHART_DISPLAY_WIN, 0, 0);
+    return 0;
+    /* --- functionality --- */
     STARTING_TIME = time(NULL);
     /* allocate buckets */
     /* incomming buckets */
@@ -60,17 +104,6 @@ int main(int argc, char **argv)
 #if defined(DEBUG)
     printf("We are here\n");
 #endif // DEBUG
-    get_current_terminal_width(&WINDOW_HEIGHT, &WINDOW_WIDTH);
-    if (!WINDOW_HEIGHT)
-    {
-        printf("Could not assign window height value.\n");
-        return 1;
-    }
-    if (!WINDOW_WIDTH)
-    {
-        printf("Could not assign window width value.\n");
-        return 1;
-    }
     OSIIA1_print_horirontal_line(NULL, " ", 2);
     OSIIA1_print_horirontal_line(NULL, "=", 1);
     printf(BOOTING_SEQUENCE);
