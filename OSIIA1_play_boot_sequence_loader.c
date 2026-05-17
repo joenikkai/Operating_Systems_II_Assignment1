@@ -8,10 +8,10 @@ void OSIIA1_play_boot_sequence_loader(WINDOW **w, int curr_cyc,int total_cyc)
     inner_height = height - 2;
     inner_width = width - 2;
     float progress = (float) curr_cyc/total_cyc;
-    int p_width = (int)progress * inner_width;
+    int p_width = (int)progress * inner_width - 1;
     mvwaddch(*w, 1,1, '[');
     mvwaddch(*w, 1, 1+inner_width, ']');
-    for (int col = 0; col <= inner_width;col ++)
+    for (int col = 0; col <= p_width;col ++)
     {
         if (col < p_width)
         {
