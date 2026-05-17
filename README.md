@@ -38,7 +38,6 @@ struct Job {
 };
 ```
 
-We will use the GNU readline library to get user input.
 
 ## REPL
 

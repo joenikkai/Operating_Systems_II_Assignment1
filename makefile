@@ -23,7 +23,7 @@ FLAGS ?=
 FLAGS := -std=gnu99 $(FLAGS) $(IFLAGS) $(MACROS_FLAGS) $(WGWFLAGS)
 
 LDFLAGS ?= 
-LDFLAGS :=  -lreadline -lncurses $(LDFLAGS) $(WGWLDFLAGS)
+LDFLAGS := -lncurses $(LDFLAGS) $(WGWLDFLAGS)
 
 SOURCES ?= $(shell find . -name "*.c")
 OBJECTS := $(SOURCES:%.c=%.o)
