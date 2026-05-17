@@ -4,6 +4,7 @@
 #include "OSIIA1_threads.h"
 #include "OSIIA1_terminal.h"
 #include <string.h>
+#include <ctype.h>
 #undef DEBUG
 
 void *handle_user_input(void* args)
@@ -27,6 +28,58 @@ void *handle_user_input(void* args)
         if (strcmp(lower, "clear") == 0)
         {
             wclear(HANDLE_USER_INPUT_INNER_WIN);
+            wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            free(lower);
+            free(input);
+            continue;
+        }
+
+        if (strncmp(lower, "ls", 2) == 0)
+        {
+            char *arg = trimmed + 2;
+            while (isspace((unsigned char)*arg)) arg++;
+
+            if (strcmp(arg, "in") == 0)
+            {
+                pthread_mutex_lock(&BUCKET_MUTEX);
+                wprintw(HANDLE_USER_INPUT_INNER_WIN, "Incoming Jobs:\n");
+                for (int i = 0; i < IN_BUCKET->ji_accummulation; i++)
+                {
+                    wprintw(HANDLE_USER_INPUT_INNER_WIN, " [ ID: %hx ] Burst: %hhu | Msg: %s\n", 
+                            IN_BUCKET->ji[i]->job_id, IN_BUCKET->ji[i]->j->burst, IN_BUCKET->ji[i]->j->e_msg);
+                }
+                pthread_mutex_unlock(&BUCKET_MUTEX);
+            }
+            else if (strcmp(arg, "sus") == 0)
+            {
+                pthread_mutex_lock(&BUCKET_MUTEX);
+                wprintw(HANDLE_USER_INPUT_INNER_WIN, "Suspended Jobs:\n");
+                for (int i = 0; i < SUS_BUCKET->ji_accummulation; i++)
+                {
+                    wprintw(HANDLE_USER_INPUT_INNER_WIN, " [ ID: %hx ] Burst: %hhu | Msg: %s\n", 
+                            SUS_BUCKET->ji[i]->job_id, SUS_BUCKET->ji[i]->j->burst, SUS_BUCKET->ji[i]->j->e_msg);
+                }
+                pthread_mutex_unlock(&BUCKET_MUTEX);
+            }
+            else if (strcmp(arg, "done") == 0)
+            {
+                pthread_mutex_lock(&BUCKET_MUTEX);
+                wprintw(HANDLE_USER_INPUT_INNER_WIN, "Completed Jobs:\n");
+                // Find unique job IDs that finished (last record burst was 1)
+                for (int i = 0; i < RECORDS_COUNT; i++)
+                {
+                    if (RECORDS[i] && RECORDS[i]->burst_time == 1)
+                    {
+                        wprintw(HANDLE_USER_INPUT_INNER_WIN, " [ ID: %hx ] Msg: %s\n", 
+                                RECORDS[i]->job_id, RECORDS[i]->message);
+                    }
+                }
+                pthread_mutex_unlock(&BUCKET_MUTEX);
+            }
+            else
+            {
+                wprintw(HANDLE_USER_INPUT_INNER_WIN, "Usage: ls [in|sus|done]\n");
+            }
             wrefresh(HANDLE_USER_INPUT_INNER_WIN);
             free(lower);
             free(input);
