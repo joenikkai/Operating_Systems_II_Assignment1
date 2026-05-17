@@ -10,6 +10,9 @@
 #include "OSIIA1_pattern.h"
 
 #define BOOTING_SEQUENCE { \
+        "",\
+        "",\
+        "<=>", \
         "$ > 9  \"Execution of write file syscall\" 0", \
         "    ^          ^                           ^", \
         "    |          |                           |", \
@@ -17,6 +20,11 @@
         "    |          This is what to print after a job has been executed", \
         "    This is the burst time if the job in seconds", \
         "(exitEXIT) to exit the program", \
+        "",\
+        "",\
+        "<->",\
+        "Yay! Welcome, Dear User.", \
+        "<->" \
     }
 /* end of defines */
 
