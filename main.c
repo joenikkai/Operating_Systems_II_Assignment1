@@ -39,6 +39,7 @@ WINDOW *GRANTT_CHART_DISPLAY_WIN = NULL;
 
 int main(int argc, char **argv)
 {
+
     /* initialize ncurses */
     if (!initscr())
     {
@@ -46,6 +47,8 @@ int main(int argc, char **argv)
         return 1;
     }
     get_current_terminal_dimensions();
+    OSIIA1_play_boot_sequence();
+    return 0;
     if (!WINDOW_HEIGHT)
     {
         printf("Could not assign window height value.\n");
@@ -58,13 +61,13 @@ int main(int argc, char **argv)
     }
 
     int grant_chart_height = 7;
-    HANDLE_USER_INPUT_WIN = newwin(WINDOW_HEIGHT - grant_chart_height, (int)(WINDOW_WIDTH / 2), 1, 0);
+    HANDLE_USER_INPUT_WIN = newwin(WINDOW_HEIGHT - grant_chart_height -1, (int)(WINDOW_WIDTH / 2), 1, 0);
     if (!HANDLE_USER_INPUT_WIN)
     {
         perror("newwin");
         return 1;
     }
-    CPU_EXEC_LOG_WIN = newwin(WINDOW_HEIGHT - grant_chart_height, (int)(WINDOW_WIDTH / 2), 1, WINDOW_WIDTH - (int)(WINDOW_WIDTH / 2));
+    CPU_EXEC_LOG_WIN = newwin(WINDOW_HEIGHT - grant_chart_height - 1, (int)(WINDOW_WIDTH / 2), 1, WINDOW_WIDTH - (int)(WINDOW_WIDTH / 2));
     if (!CPU_EXEC_LOG_WIN)
     {
         perror("newwin");
@@ -88,11 +91,7 @@ int main(int argc, char **argv)
     
     getch();
 
-    delwin(HANDLE_USER_INPUT_WIN);
-    delwin(CPU_EXEC_LOG_WIN);
-    delwin(GRANTT_CHART_DISPLAY_WIN);
-    endwin();
-    return 0;
+    
     /* --- functionality --- */
     STARTING_TIME = time(NULL);
     /* allocate buckets */
@@ -112,15 +111,8 @@ int main(int argc, char **argv)
     SUS_BUCKET->ji_accummulation = 0;
     SUS_BUCKET->ji = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct job_instance*));
 
-#if defined(DEBUG)
-    printf("We are here\n");
-#endif // DEBUG
-    OSIIA1_print_horirontal_line(NULL, " ", 2);
-    OSIIA1_print_horirontal_line(NULL, "=", 1);
-    printf(BOOTING_SEQUENCE);
-    OSIIA1_print_horirontal_line(NULL, NULL, 1);
-    printf("Yay! Welcome dear user.\n");
-    OSIIA1_print_horirontal_line(NULL, " ", 2);
+    mvprintw(0,WINDOW_WIDTH/3,"OSIIA1 https://mmu.ac.ke");
+    /* initialize history */
     read_history(HISTORY_FILE);
     stifle_history(HISTORY_MAX);
     
@@ -152,7 +144,13 @@ int main(int argc, char **argv)
     OSIIA1_print_horirontal_line(NULL, " ", 2);
     if (IN_BUCKET)
         free_bucket(IN_BUCKET);
+    /* --- */
     if (SUS_BUCKET)
         free_bucket(SUS_BUCKET);
+    /* --- */
+    delwin(HANDLE_USER_INPUT_WIN);
+    delwin(CPU_EXEC_LOG_WIN);
+    delwin(GRANTT_CHART_DISPLAY_WIN);
+    endwin();
     return retval;
 }
