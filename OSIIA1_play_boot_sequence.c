@@ -7,7 +7,7 @@ void OSIIA1_play_boot_sequence()
     curs_set(0);
 
     const char *bs[] = BOOTING_SEQUENCE;
-    int cyc_t = 667; /* cycle time */
+    int cyc_t = 333333; /* cycle time */
     int nbs = (sizeof(bs) / sizeof(bs[0]));
     int boot_time = nbs*cyc_t;
 
