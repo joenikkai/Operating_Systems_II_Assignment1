@@ -53,6 +53,8 @@ int main(int argc, char **argv)
         perror("initscr");
         return 1;
     }
+    noecho();
+    cbreak();
     get_current_terminal_dimensions();
     OSIIA1_play_boot_sequence();
 

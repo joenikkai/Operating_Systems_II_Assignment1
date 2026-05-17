@@ -23,6 +23,15 @@ void *handle_user_input(void* args)
             PROGRAM_IS_RUNNING = 0;
             return NULL;
         }
+
+        if (strcmp(lower, "clear") == 0)
+        {
+            wclear(HANDLE_USER_INPUT_WIN);
+            wrefresh(HANDLE_USER_INPUT_WIN);
+            free(lower);
+            free(input);
+            continue;
+        }
         free(lower);
 
         if (strlen(trimmed) <= 0)
