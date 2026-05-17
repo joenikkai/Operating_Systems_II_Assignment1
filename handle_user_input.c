@@ -36,6 +36,51 @@ void *handle_user_input(void* args)
             continue;
         }
 
+        if (strcmp(lower, "query") == 0)
+        {
+            pthread_mutex_lock(&BUCKET_MUTEX);
+            generate_gantt_svg("gantt_chart.svg");
+            generate_process_table_svg("process_table.svg");
+            
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, "Query completed. Generated:\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, " - gantt_chart.svg\n");
+            wprintw(HANDLE_USER_INPUT_INNER_WIN, " - process_table.svg\n");
+            
+            // Calculate and display metrics in terminal too
+            double total_tat = 0, total_wt = 0;
+            int count = 0;
+            for (int i = 0; i < RECORDS_COUNT; i++)
+            {
+                if (RECORDS[i] && RECORDS[i]->finish_time > 0)
+                {
+                    int unique = 1;
+                    for(int j=0; j<i; j++) {
+                        if(RECORDS[j] && RECORDS[j]->job_id == RECORDS[i]->job_id && RECORDS[j]->finish_time > 0) {
+                            unique = 0; break;
+                        }
+                    }
+                    if(unique) {
+                        long tat = RECORDS[i]->finish_time - RECORDS[i]->arrival_time;
+                        long wt = tat - RECORDS[i]->original_burst;
+                        total_tat += tat;
+                        total_wt += wt;
+                        count++;
+                    }
+                }
+            }
+            if (count > 0) {
+                wprintw(HANDLE_USER_INPUT_INNER_WIN, "Average TAT: %.2f s\n", total_tat / count);
+                wprintw(HANDLE_USER_INPUT_INNER_WIN, "Average WT:  %.2f s\n", total_wt / count);
+                wprintw(HANDLE_USER_INPUT_INNER_WIN, "Total WT:    %.2f s\n", total_wt);
+            }
+            
+            pthread_mutex_unlock(&BUCKET_MUTEX);
+            wrefresh(HANDLE_USER_INPUT_INNER_WIN);
+            free(lower);
+            free(input);
+            continue;
+        }
+
         if (strncmp(lower, "ls", 2) == 0)
         {
             char *arg = trimmed + 2;
@@ -68,10 +113,10 @@ void *handle_user_input(void* args)
             {
                 pthread_mutex_lock(&BUCKET_MUTEX);
                 wprintw(HANDLE_USER_INPUT_INNER_WIN, "Completed Jobs:\n");
-                // Find unique job IDs that finished (last record burst was 1)
+                // Find unique job IDs that finished (record burst was 0)
                 for (int i = 0; i < RECORDS_COUNT; i++)
                 {
-                    if (RECORDS[i] && RECORDS[i]->burst_time == 1)
+                    if (RECORDS[i] && RECORDS[i]->burst_time == 0)
                     {
                         wprintw(HANDLE_USER_INPUT_INNER_WIN, " [ ID: %hx ] Msg: %s\n", 
                                 RECORDS[i]->job_id, RECORDS[i]->message);

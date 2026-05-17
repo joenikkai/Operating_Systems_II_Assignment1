@@ -8,6 +8,8 @@ struct Job
 {
     time_t arrival_time;
     uint8_t burst;
+    uint8_t original_burst;
+    time_t finish_time;
     uint8_t e_code;
     char *e_msg;
 };

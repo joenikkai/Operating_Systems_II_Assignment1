@@ -12,6 +12,7 @@ struct Job *get_new_job(struct extracted_strings* es) /* makes a new `struct Job
     }
     new_job->arrival_time = time(NULL);
     new_job->burst = (uint8_t)atoi(es->strings[1]);
+    new_job->original_burst = new_job->burst;
     new_job->e_msg = calloc(es->length_of_strings[2]+1, sizeof(char));
     new_job->e_code = (uint8_t)atoi(es->strings[3]);
     snprintf(new_job->e_msg,es->length_of_strings[2]+1,"%.*s",es->length_of_strings[2],es->strings[2]);
