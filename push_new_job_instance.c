@@ -24,6 +24,7 @@ void push_new_job_instance(struct Job* j)
     
     ji->j->arrival_time = j->arrival_time;
     ji->j->burst = j->burst;
+    ji->j->original_burst = j->original_burst;
     ji->j->e_code = j->e_code;
 
     if (!j->e_msg)
