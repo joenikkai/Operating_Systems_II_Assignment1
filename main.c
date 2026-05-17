@@ -31,11 +31,18 @@ time_t END_TIME_FOR_PREVIOUS_JOB = 0;
 struct Bucket *IN_BUCKET = NULL;
 struct Bucket *SUS_BUCKET = NULL;
 
+struct job_instance_record **RECORDS = NULL;
+volatile uint16_t RECORDS_COUNT = 0;
+
+pthread_mutex_t BUCKET_MUTEX = PTHREAD_MUTEX_INITIALIZER;
+
 volatile uint16_t NUMBER_OF_JOBS = 1;
 
 WINDOW *CPU_EXEC_LOG_WIN = NULL;
 WINDOW *HANDLE_USER_INPUT_WIN = NULL;
 WINDOW *GRANTT_CHART_DISPLAY_WIN = NULL;
+
+char **HISTORY_COMMANDS = NULL;
 
 int main(int argc, char **argv)
 {
@@ -108,12 +115,24 @@ int main(int argc, char **argv)
     /* initalize bucket values */
     SUS_BUCKET->maximum_ji_accummulation = MAXIMUM_SUS_JI_ACCUMULATION;
     SUS_BUCKET->ji_accummulation = 0;
-    SUS_BUCKET->ji = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct job_instance*));
+    SUS_BUCKET->ji = calloc(MAXIMUM_SUS_JI_ACCUMULATION + 1, sizeof(struct job_instance *));
+
+    /* allocate records */
+    RECORDS = calloc(MAXIMUM_RECORDS, sizeof(struct job_instance_record *));
+    RECORDS_COUNT = 0;
 
     mvprintw(0,WINDOW_WIDTH/3,"OSIIA1 https://mmu.ac.ke");
+
+    /* allocate memory for history */
+    HISTORY_COMMANDS = calloc(HISTORY_MAX, sizeof(char *));
+    if (!HISTORY_COMMANDS)
+    {
+        perror("calloc");
+        return 1;
+    }
     /* initialize history */
-    read_history(HISTORY_FILE);
-    stifle_history(HISTORY_MAX);
+    OSIIA1_read_history(HISTORY_FILE); /* read first 1/3 and store them into memory */
+    OSIIA1_stifle_history(HISTORY_MAX);
     
     /* return value */
     int retval = 0;

@@ -24,6 +24,7 @@ typedef pthread_t OSIIA1_thread_t;
 
 #define MAXIMUM_IN_JI_ACCUMULATION ((uint16_t)(255)) /* incomming job instance accummulation */
 #define MAXIMUM_SUS_JI_ACCUMULATION ((uint16_t)(1023)) /* suspended job instance accummulation */
+#define MAXIMUM_RECORDS ((uint16_t)(4096)) /* maximum records for gantt chart */
 
 struct job_instance {
     uint16_t job_id;
@@ -45,6 +46,11 @@ struct job_instance_record {
 
 extern struct Bucket *IN_BUCKET; /* outgoing processes */
 extern struct Bucket *SUS_BUCKET; /* suspended but not finished processes */
+
+extern struct job_instance_record **RECORDS;
+extern volatile uint16_t RECORDS_COUNT;
+
+extern pthread_mutex_t BUCKET_MUTEX;
 
 extern volatile uint16_t NUMBER_OF_JOBS;
 extern volatile uint16_t CPU_IS_EXECUTING;
