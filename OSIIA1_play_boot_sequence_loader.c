@@ -1,5 +1,5 @@
 #include "OSIIA1_terminal.h"
-#include <ncurses/ncurses.h>
+#include <ncurses.h>
 
 static float cubic_bezier(float t, float p1y, float p2y)
 {

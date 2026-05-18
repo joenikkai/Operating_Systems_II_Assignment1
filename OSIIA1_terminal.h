@@ -1,7 +1,7 @@
 #if !defined(OSIIA1_TERMINAL_H)
 #define OSIIA1_TERMINAL_H
 
-#include <ncurses/ncurses.h>
+#include <ncurses.h>
 
 
 extern volatile int WINDOW_WIDTH; /* \brief The width of the current terminal */
