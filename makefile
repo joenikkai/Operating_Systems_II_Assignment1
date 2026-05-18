@@ -46,7 +46,7 @@ run: $(BINARY)
 	./$<
 
 clean:
-	@rm $(OBJECTS) $(BINARY)
+	@rm -fr $(OBJECTS) $(BINARY)
 	@echo "DELETED: $(OBJECTS) $(BINARY)"
 
 help:
